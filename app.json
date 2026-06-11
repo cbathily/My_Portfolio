@@ -1,0 +1,27 @@
+﻿{
+    "expo":  {
+                 "name":  "Coumba Bathily â€” Portfolio",
+                 "slug":  "coumba-portfolio",
+                 "version":  "1.0.0",
+                 "orientation":  "portrait",
+                 "scheme":  "portfolio",
+                 "userInterfaceStyle":  "light",
+                 "backgroundColor":  "#ffffff",
+                 "splash":  {
+                                "backgroundColor":  "#ffffff",
+                                "resizeMode":  "contain"
+                            },
+                 "assetBundlePatterns":  [
+                                             "**/*"
+                                         ],
+                 "web":  {
+                             "bundler":  "metro"
+                         },
+                 "ios":  {
+                             "supportsTablet":  true
+                         },
+                 "android":  {
+
+                             }
+             }
+}
