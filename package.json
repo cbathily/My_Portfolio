@@ -8,7 +8,9 @@
     "start": "expo start",
     "web": "expo start --web",
     "android": "expo start --android",
-    "ios": "expo start --ios"
+    "ios": "expo start --ios",
+    "deploy": "npx expo export -p web && wrangler deploy",
+    "preview": "npx expo export -p web && wrangler dev"
   },
   "dependencies": {
     "@expo-google-fonts/instrument-serif": "^0.4.1",
@@ -32,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@types/react": "^18.3.31",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.100.0"
   }
 }

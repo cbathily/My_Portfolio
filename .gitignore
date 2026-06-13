@@ -14,3 +14,9 @@ npm-debug.*
 
 # Large original video (107 MB) — compressed version is tracked instead
 public/atolls/atolls_projekt.mp4
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
