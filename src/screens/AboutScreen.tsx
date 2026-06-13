@@ -242,7 +242,7 @@ const s = StyleSheet.create({
 
   /* intro */
   intro: { flexDirection: 'row', gap: 64, alignItems: 'flex-start' },
-  introStack: { flexDirection: 'column', gap: 28 },
+  introStack: { flexDirection: 'column', gap: 28, alignItems: 'stretch' },
   introImgWrap: { flex: 1, aspectRatio: 5 / 6, position: 'relative', backgroundColor: colors.ph, overflow: 'hidden' },
   introTxt: { flex: 1 },
   introHeading: { fontFamily: fonts.semibold, color: colors.ink, marginBottom: 20 },
@@ -254,7 +254,7 @@ const s = StyleSheet.create({
 
   /* shared section row (label left / body right) */
   row: { flexDirection: 'row', gap: 64, alignItems: 'flex-start' },
-  rowStack: { flexDirection: 'column', gap: 24 },
+  rowStack: { flexDirection: 'column', gap: 24, alignItems: 'stretch' },
   labelCol: { width: 200, paddingTop: 4 },
   labelColNarrow: { width: 'auto' },
   labelSub: { fontFamily: fonts.regular, color: colors.muted, fontSize: 15, lineHeight: 22, marginTop: 14 },

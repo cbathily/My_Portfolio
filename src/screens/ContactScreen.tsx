@@ -181,7 +181,7 @@ const s = StyleSheet.create({
   heroTitle: { fontFamily: fonts.semibold, color: colors.ink, letterSpacing: -3.5 },
   serif: { fontFamily: fonts.serifItalic, color: colors.accent },
   grid: { flexDirection: 'row', gap: 80, alignItems: 'flex-start' },
-  gridStack: { flexDirection: 'column', gap: 48 },
+  gridStack: { flexDirection: 'column', gap: 48, alignItems: 'stretch' },
   info: { flex: 0.85 },
   introPara: { color: colors.ink, lineHeight: 30, marginBottom: 32, maxWidth: 380 },
   mail: { fontFamily: fonts.semibold, fontSize: 24, color: colors.ink, letterSpacing: -0.6 },
