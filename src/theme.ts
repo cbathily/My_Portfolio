@@ -7,7 +7,7 @@ import type { TextStyle } from 'react-native';
    ============================================================ */
 
 export const colors = {
-  accent: '#46000A',
+  accent: '#6E0110',
   accentSoft: '#efeafc',
   accentDark: '#4a0fc0',
   ink: '#2c2c2e',

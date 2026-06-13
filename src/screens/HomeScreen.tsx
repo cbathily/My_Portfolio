@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Svg, { Path } from 'react-native-svg';
 import { siFigma, siReact, siPython } from 'simple-icons';
@@ -26,7 +26,7 @@ type MosaicProject = { id: string; num: string; title: string; alt: boolean; cov
 const HIGHLIGHTS: MosaicProject[] = [
   { id: 'plantnet', num: '01', title: 'PlantNet — App Redesign',               alt: false },
   { id: 'atolls',   num: '02', title: 'Automated Review Management',           alt: true  },
-  { id: 'moosburg', num: '03', title: "Moosburg's History Made Visible",       alt: false },
+  { id: 'moosburg', num: '03', title: "Hybrid Service Design for Moosburg's History", alt: false },
   { id: 'munich',   num: '04', title: 'Super Munich App',                      alt: false },
   { id: 'swm',      num: '05', title: 'Agentic Workflow for Stadtwerke München', alt: true  },
 ];
@@ -231,6 +231,39 @@ function ToolIconSvg({ name, size }: { name: string; size: number }) {
 }
 
 /* ─────────────────────────────────────────────
+   Pulsing live-indicator dot
+───────────────────────────────────────────── */
+function PulseDot() {
+  const ring = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(ring, { toValue: 1, duration: 1100, easing: Easing.out(Easing.ease), useNativeDriver: true }),
+        Animated.timing(ring, { toValue: 0, duration: 0, useNativeDriver: true }),
+        Animated.delay(600),
+      ]),
+    ).start();
+  }, [ring]);
+
+  const ringScale   = ring.interpolate({ inputRange: [0, 1], outputRange: [1, 2.6] });
+  const ringOpacity = ring.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0.6, 0.2, 0] });
+
+  return (
+    <View style={{ width: 8, height: 8, alignItems: 'center', justifyContent: 'center' }}>
+      <Animated.View style={{
+        position: 'absolute',
+        width: 8, height: 8, borderRadius: 4,
+        backgroundColor: colors.accent,
+        transform: [{ scale: ringScale }],
+        opacity: ringOpacity,
+      }} />
+      <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: colors.accent }} />
+    </View>
+  );
+}
+
+/* ─────────────────────────────────────────────
    HomeScreen
 ───────────────────────────────────────────── */
 const NAV_H   = 60;
@@ -356,7 +389,7 @@ export default function HomeScreen() {
         <View style={{ paddingTop: afterRule }}>
           <Reveal>
             <View style={wp.badge}>
-              <View style={wp.dot} />
+              <PulseDot />
               <Text style={wp.badgeTxt}>project in progress · 2026</Text>
             </View>
             <View style={[wp.row, isNarrow && wp.rowStack]}>

@@ -28,9 +28,9 @@ const PROJECTS: Project[] = [
     title: 'PlantNet — App Redesign',
     cats: ['ux', 'proto'],
     alt: false,
-    pills: ['University Project', 'UI Design'],
-    chips: ['UX Audit', 'UI Redesign', 'Wireframing', 'Prototyping'],
-    desc: 'Redesigning the popular plant-identifying app: running a full UX audit, rebuilding the UI and adding a community layer.',
+    pills: ['Academic', 'UX Design'],
+    chips: ['UX Audit', 'Wireframing', 'UI Design', 'Prototyping'],
+    desc: 'Redesigning the popular plant identification app: full UX audit, rebuilt UI and a new community layer.',
     ar: 4 / 5,
   },
   {
@@ -39,20 +39,20 @@ const PROJECTS: Project[] = [
     title: 'Automated Review Management for Atolls',
     cats: ['ai'],
     alt: true,
-    pills: ['University Project', '3rd Semester'],
-    chips: ['LLM Flows', 'n8n', 'Multi-Agent', 'UI Prototype'],
-    desc: 'An AI-powered multi-agent workflow that classifies customer reviews, generates draft responses, and surfaces sentiment trends — keeping humans in control.',
+    pills: ['Industry Project', 'AI & Automation'],
+    chips: ['n8n', 'Multi-Agent', 'LLM', 'UI Prototype'],
+    desc: 'An AI powered multi agent workflow that classifies reviews, drafts responses, and surfaces sentiment trends while keeping humans in control.',
     ar: 5 / 4,
   },
   {
     id: 'moosburg',
     num: '03',
-    title: "Making Moosburg's History Visible",
+    title: "Hybrid Service Design for Moosburg's History",
     cats: ['ux'],
     alt: false,
-    pills: ['University Project', '3rd Semester'],
-    chips: ['Service Design', 'User Research', 'Branding'],
-    desc: "A hybrid service concept — physical information boards, a QR-linked mobile experience, and a brand identity that brings local history to every generation.",
+    pills: ['Academic', 'Service Design'],
+    chips: ['User Research', 'Service Concept', 'Branding'],
+    desc: "A hybrid service concept combining physical information boards, a QR linked mobile experience and a concise brand identity to make local history visible.",
     ar: 3 / 4,
   },
   {
@@ -61,50 +61,28 @@ const PROJECTS: Project[] = [
     title: 'Super Munich App',
     cats: ['ux', 'proto'],
     alt: true,
-    pills: ['University Project', '2nd Semester'],
-    chips: ['Service Concept', 'UI Prototype', 'Branding'],
-    desc: 'A hackathon concept unifying public transport, culture, and leisure into one city app, designed in high fidelity under a 3 day time constraint.',
+    pills: ['Hackathon', 'UI Design'],
+    chips: ['UI Design', 'Prototyping', 'Branding'],
+    desc: 'A hackathon concept unifying public transport, culture and leisure into one city app, designed in high fidelity under a 3 day time constraint.',
     ar: 4 / 3,
   },
   {
-    id: 'banking',
-    num: '05',
-    title: 'Banking Dashboard',
-    cats: ['proto'],
-    alt: false,
-    pills: ['Course Project', 'FinTech'],
-    chips: ['Data Viz', 'Design System', 'Interfaces'],
-    desc: 'A dense financial dashboard built for clarity in high-stakes decisions — a reusable component language and clear hierarchy.',
-    ar: 4 / 5,
-  },
-  {
-    id: 'transit',
-    num: '06',
-    title: 'Transit Wayfinding',
-    cats: ['ux'],
-    alt: true,
-    pills: ['Concept', 'Mobility'],
-    chips: ['Research', 'Information Architecture'],
-    desc: 'Rethinking how riders navigate a city transit network — from field research to a calmer, more legible wayfinding system.',
-    ar: 1,
-  },
-  {
     id: 'swm',
-    num: '07',
+    num: '05',
     title: 'Agentic Workflow for Stadtwerke München',
     cats: ['ai'],
     alt: false,
     pills: ['Concept', 'AI & Automation'],
-    chips: ['Multi-Agent', 'AI Automation', 'UX'],
-    desc: 'An AI-powered multi-agent workflow concept for Munich\'s public transport operator — automating customer inquiry handling at scale.',
+    chips: ['Multi-Agent', 'Workflow Design', 'AI Automation'],
+    desc: 'An AI powered multi agent workflow concept for Munich\'s public transport operator, automating customer inquiry handling at scale.',
     ar: 4 / 3,
   },
 ];
 
 const FILTERS: Filter[] = [
   { label: 'All', key: 'all' },
-  { label: 'Service & UX Design', key: 'ux' },
-  { label: 'Prototyping & Interfaces', key: 'proto' },
+  { label: 'UX Design', key: 'ux' },
+  { label: 'Prototyping', key: 'proto' },
   { label: 'AI & Automation', key: 'ai' },
 ];
 
@@ -135,7 +113,7 @@ export default function ProjectsScreen() {
         <View style={{ paddingTop: clamp(width, 56, 8, 110), alignItems: 'center' }}>
           <Reveal>
             <Text style={[t.h1, { textAlign: 'center' }]}>
-              I design <Text style={s.serif}>across.</Text>
+              I design <Text style={s.serif}>across...</Text>
             </Text>
           </Reveal>
           <Reveal delay={80}>

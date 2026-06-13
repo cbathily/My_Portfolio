@@ -22,7 +22,9 @@ type CaseSection = {
   issues?: Issue[];
   twoImages?: boolean;
   postParagraphs?: string[];
+  postVideoParagraphs?: string[];
   imageBeforeIssues?: { ar: number; source?: any };
+  issuesIntro?: string;
   stackedImages?: { ar: number; source?: any }[];
   figmaEmbed?: string;
   videoSource?: any;
@@ -32,6 +34,7 @@ type ProjectDetail = {
   num: string;
   titlePre: string;
   titleAccent: string;
+  titlePost?: string;
   lede: string;
   chips: string[];
   pills: string[];
@@ -41,6 +44,7 @@ type ProjectDetail = {
   nextNum: string;
   nextTitlePre: string;
   nextTitleAccent: string;
+  nextTitlePost?: string;
   nextId: string;
 };
 
@@ -53,12 +57,12 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
     num: '01',
     titlePre: 'Redesign of',
     titleAccent: 'PlantNet',
-    lede: 'A UI redesign of the plant-identification app — fixing chaotic hierarchy, redundant screens and unintuitive navigation, while adding new community and engagement features.',
-    chips: ['UX Audit', 'UI Redesign', 'Wireframing', 'Prototyping'],
-    pills: ['University Project', 'UI Design'],
+    lede: 'UI redesign of the plant identification app, simplifying hierarchy and navigation while adding community and engagement features.',
+    chips: ['UX Audit', 'Wireframing', 'UI Design', 'Prototyping'],
+    pills: ['Academic', 'UX Design'],
     meta: [
       { label: 'Duration', value: '6 months' },
-      { label: 'Context', value: 'University Project' },
+      { label: 'Context', value: 'Academic Project' },
       { label: 'Semester', value: '2nd Semester' },
       { label: 'Tools', value: 'Figma' },
     ],
@@ -68,30 +72,31 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         label: 'Context',
         title: 'Why Pl@ntNet?',
         paragraphs: [
-          'For my 2nd-semester design module we could choose any mobile or web interface to redesign — I chose PlantNet.',
-          'PlantNet is a community-based plant-identification app where users take photos of plants. The AI suggests possible species, and the community collectively helps improve the model\'s accuracy over time. It is a genuinely useful tool with a dedicated user base of botanists, hikers and nature enthusiasts — myself included.',
-          'I chose PlantNet because I\'m genuinely interested in its mission and see strong value in the concept. But the current execution falls short: the UI hasn\'t evolved alongside the product\'s growth.',
+          'For my 2nd semester design module we could choose any mobile or web interface to redesign, so I picked PlantNet.',
+          'PlantNet is a community plant identification app where users take photos of plants. The AI suggests species and the community helps improve the model over time. It has a dedicated user base of botanists, hikers and nature enthusiasts, including me.',
+          'I chose PlantNet because I believe in its mission, but the UI hasn\'t kept pace with the product\'s growth.',
         ],
       },
       {
         label: 'The Problem',
         title: "UX Audit: what's broken?",
         paragraphs: [
-          'I went through the app screen by screen, documenting every UI issue I found. Four categories emerged consistently: typography hierarchy, screen efficiency, navigation clarity and visual consistency.',
+          'To understand the current state of the app, I conducted a screen-by-screen UX audit. I documented recurring usability issues, interaction patterns, and visual inconsistencies across the interface. During this process, several recurring problem areas became visible, each affecting how users perceive and navigate the app in different ways.',
         ],
         imageBeforeIssues: { ar: 16 / 9, source: PLANTNET_IMAGES.ux_audit },
+        issuesIntro: 'Four categories emerged consistently:',
         issues: [
-          { title: 'Typography', desc: 'Weak hierarchy makes it hard to scan information and understand importance at a glance.' },
-          { title: 'Screen efficiency', desc: 'Some screens feel inefficient, with single actions and unnecessary whitespace that could be handled with lighter UI patterns.' },
-          { title: 'Navigation icons', desc: 'Icon-only navigation creates ambiguity and makes key sections harder to find.' },
-          { title: 'Visual consistency', desc: 'Inconsistent spacing, components and styles make the UI feel fragmented and unstructured.' },
+          { title: 'Typography', desc: 'Weak hierarchy makes it difficult to scan information quickly and understand what is most important at a glance.' },
+          { title: 'Screen efficiency', desc: 'Some screens feel inefficient, relying on isolated actions and unnecessary whitespace instead of more compact and functional UI patterns.' },
+          { title: 'Navigation icons', desc: 'Icon-only navigation creates ambiguity and reduces clarity, making it harder for users to locate key sections.' },
+          { title: 'Visual consistency', desc: 'Inconsistent spacing, components, and styling contribute to a fragmented and unstructured overall experience.' },
         ],
       },
       {
         label: 'Process',
         title: 'Wireframes and new ideas',
         paragraphs: [
-          'I started with low-fidelity wireframes for all redesigned screens before touching visual design. Key focus: navigation restructure, home-screen hierarchy and the new community flows.',
+          'I started with low fidelity wireframes for all redesigned screens before touching visual design. Key focus: navigation restructure, home screen hierarchy and the new community flows.',
           'The main focus of my redesign was the Home screen, as it is the first screen users see and defines the initial impression of the app.',
           'Beyond improving clarity, I rethought the product experience and introduced new concepts to increase engagement: a redesigned community layer, a dedicated space for articles, and a light gamification system.',
         ],
@@ -105,11 +110,11 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         title: 'The final design',
         lead: true,
         paragraphs: [
-          'The final Figma prototype is a refined redesign of PlantNet with a focus on clarity, structure and usability.',
-          'The redesign introduces a cleaner visual system with a clear typographic hierarchy, improved spacing and a more consistent component language. A secondary accent — purple — was added to complement the natural green palette.',
-          'The structure of the app was simplified and reorganised around core use-cases: exploring the Home feed, browsing plant information in a more structured catalog, and engaging with the community section.',
+          'The final Figma prototype focuses on clarity, structure and usability.',
+          'The redesign introduces a cleaner visual system with clear typographic hierarchy, improved spacing and a more consistent component language. A secondary purple accent complements the natural green palette.',
+          'The app was reorganised around core use cases: exploring the home feed, browsing plant information, and engaging with the community.',
         ],
-        figmaEmbed: 'https://www.figma.com/proto/j2T6ddwOBV7cnhMN/Pl-ntNet?node-id=478-327&p=f&t=vBjD0fnvy1AqxWgg-1&scaling=scale-down&content-scaling=fixed&page-id=303%3A326&starting-point-node-id=434%3A637',
+        figmaEmbed: 'https://www.figma.com/proto/MykogSCeLUoiyxS8CRuChq/Pl-ntNet-Semesterarbeit?node-id=3-313&p=f&t=KYbwXcFqFtLavQml-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=3%3A313',
       },
     ],
     nextNum: '02',
@@ -122,12 +127,12 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
     num: '02',
     titlePre: 'Automated Review Management for',
     titleAccent: 'Atolls',
-    lede: 'An AI-powered workflow that classifies incoming customer reviews, generates draft responses, and surfaces patterns — keeping humans in the loop at every step.',
-    chips: ['LLM Flows', 'n8n', 'Multi-Agent', 'UI Prototype'],
-    pills: ['University Project', '3rd Semester'],
+    lede: 'An AI powered workflow that classifies incoming customer reviews, drafts responses, and surfaces patterns while keeping humans in the loop.',
+    chips: ['n8n', 'Multi-Agent', 'LLM', 'UI Prototype'],
+    pills: ['Industry Project', 'AI & Automation'],
     meta: [
       { label: 'Duration', value: '6 months' },
-      { label: 'Context', value: 'University Project' },
+      { label: 'Context', value: 'Academic Project' },
       { label: 'Semester', value: '3rd Semester' },
       { label: 'Tools', value: 'n8n · React Native · Figma' },
     ],
@@ -137,11 +142,10 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         label: 'Context',
         title: 'Collaboration with a Partner Company',
         paragraphs: [
-          'As part of our third-semester module on Multi-Agent Systems, each team was paired with a real company and tasked with identifying and solving a business problem over the course of six months.',
-          'Our partner was Atolls. During the initial discovery phase, we noticed that customer reviews were handled entirely manually. Team members read every review, drafted responses themselves, and documented everything in a collection of spreadsheets that had grown increasingly difficult to maintain.',
-          'The process worked, but it didn\'t scale. Reviews were scattered across Excel files, there was no consistent workflow, and valuable customer feedback was effectively locked away in unstructured text. We saw an opportunity to combine automation, AI, and human oversight into a single system that could streamline review management while also turning customer feedback into actionable insights.',
+          'As part of our third semester module on Multi-Agent-Systems, each team was paired with a real company and tasked with solving a business problem over six months.',
+          'Our partner was Atolls. During the initial discovery phase we mapped how reviews were handled: team members read reviews, drafted responses and recorded notes across multiple spreadsheets.',
+          'This discovery documented a fragmented process and scattered records that made it hard to get a consistent view of customer feedback.',
         ],
-        imageBeforeIssues: { ar: 2880 / 1400, source: ATOLLS_IMAGES.problem },
       },
       {
         label: 'The Problem',
@@ -150,6 +154,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           'Atolls received a steady stream of customer reviews, but every step of the process was handled manually. Reviews had to be read individually, responses were written from scratch, and documentation was spread across multiple spreadsheets.',
           'As a result, the team spent considerable time on repetitive tasks while gaining very little visibility into larger customer trends.',
         ],
+        imageBeforeIssues: { ar: 2880 / 1400, source: ATOLLS_IMAGES.problem },
         issues: [
           { title: 'No automation', desc: 'Every review required manual reading, assessment, and response writing. There was no support for categorisation, drafting, or routing.' },
           { title: 'No consistent process', desc: 'Review management relied on spreadsheets and personal workflows. Information was unstructured, difficult to maintain, and hard to hand over between team members.' },
@@ -161,43 +166,45 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         label: 'Process',
         title: 'Workflow and Architecture',
         paragraphs: [
-          'To address these challenges, we designed and built a multi-agent workflow in n8n that processes every incoming review from start to finish.',
-          'Whenever a new review arrives, the workflow automatically classifies its sentiment, extracts key topics, generates a draft response, and notifies the team via Slack.',
+          'To address these challenges, we designed and built a multi agent workflow in n8n that processes incoming reviews end to end.',
+          'When a new review arrives, the workflow classifies sentiment, extracts key topics, generates a draft response, and notifies the team via Slack.',
+          'This was our first time working with n8n. At the start we faced issues with authentication, webhook configuration and branching logic, which required several iterations. We used testing runs and manual inspections to stabilise the flow, added retry and error handling, and refined the topic extraction prompts to reduce noisy classifications.',
+          'Through iterative testing we settled on a single main workflow that orchestrates the core tasks and delegates specialised steps to webhook-triggered sub-workflows; this made the system easier to manage, test and extend while keeping manual review points clear.',
         ],
-        imageBeforeIssues: { ar: 2880 / 1400, source: ATOLLS_IMAGES.workflow },
+        videoSource: ATOLLS_IMAGES.video1,
       },
       {
         label: 'Outcome',
         title: 'The Final Prototype',
-        lead: true,
         paragraphs: [
-          'A key design principle was maintaining human control over customer communication. While AI generates the initial response draft, nothing is ever published automatically.',
-          'To support this workflow, we built a dedicated Review Inbox where team members can review incoming feedback, edit AI-generated responses, and publish them with a single click. This Human-in-the-Loop approach combines efficiency with accountability.',
+          'We kept humans in control: AI generates draft responses and a Review Inbox lets team members edit and publish them with a single click, combining efficiency with accountability.',
           'Beyond the original project brief, we also developed an Insights Dashboard. Rather than focusing solely on response automation, we wanted to help Atolls understand what customers were actually saying over time. The dashboard highlights recurring keywords, tracks sentiment trends, and surfaces changes in review patterns, making it easier to identify emerging issues and customer needs.',
         ],
-        videoSource: ATOLLS_IMAGES.video,
-        postParagraphs: [
+        videoSource: ATOLLS_IMAGES.video2,
+        postVideoParagraphs: [
           'What began as a review response automation project evolved into a lightweight review intelligence platform.',
           'Within a single semester, we designed, implemented, and tested a working system that demonstrated how AI agents can support real business processes while keeping humans firmly in control.',
         ],
       },
     ],
     nextNum: '03',
-    nextTitlePre: "Making Moosburg's History",
-    nextTitleAccent: 'Visible',
+    nextTitlePre: 'Hybrid',
+    nextTitleAccent: 'Service Design',
+    nextTitlePost: "for Moosburg's History",
     nextId: 'moosburg',
   },
 
   moosburg: {
     num: '03',
-    titlePre: "Making Moosburg's History",
-    titleAccent: 'Visible',
-    lede: 'A hybrid service design concept — physical information boards, a QR-linked mobile experience, and a full brand identity — that brings local history to every generation of resident and visitor.',
-    chips: ['Service Design', 'User Research', 'Branding', 'Figma'],
-    pills: ['University Project', '3rd Semester'],
+    titlePre: 'Hybrid',
+    titleAccent: 'Service Design',
+    titlePost: "for Moosburg's History",
+    lede: 'A hybrid service design concept, combining physical information boards, a QR linked mobile experience and a concise brand identity to make local history more visible.',
+    chips: ['User Research', 'Service Concept', 'Branding'],
+    pills: ['Academic', 'Service Design'],
     meta: [
       { label: 'Duration', value: '6 months' },
-      { label: 'Context', value: 'University Project' },
+      { label: 'Context', value: 'Academic Project' },
       { label: 'Semester', value: '3rd Semester' },
       { label: 'Tools', value: 'Figma · Design Principles' },
     ],
@@ -209,43 +216,44 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         paragraphs: [
           'As part of our Service Design module, we were tasked with making the history of Moosburg an der Isar more visible and accessible.',
           'We conducted on-site field research, including interviews with residents and discussions with the city archivist, to understand how local history is currently experienced and where gaps exist.',
-          'It quickly became clear that Moosburg\'s history was not absent — it was simply invisible in everyday life. While older residents carried a wealth of local knowledge, younger generations and visitors often had little awareness of the historical significance of places they passed daily. One striking example were former WWII guard barracks on the outskirts of town — historically relevant, yet unmarked, deteriorating, and largely unknown.',
+          'It quickly became clear that Moosburg\'s history was not absent, it was simply invisible in everyday life. Older residents carried local knowledge, but younger generations and visitors often had little awareness of the significance of places they passed daily.',
+          'One example is the former WWII guard barracks, located directly next to a kindergarten and a residential building. Despite their historical relevance, they remain unmarked and largely unknown.',
         ],
         imageBeforeIssues: { ar: 2880 / 1400, source: MOOSBURG_IMAGES.problem },
       },
       {
-        label: 'Insights',
+        label: 'The Process',
         title: 'User Research',
         paragraphs: [
-          'Our research revealed a clear disconnect between existing historical knowledge and public awareness.',
-          'Historical knowledge was concentrated in older generations and local archives, but rarely communicated in an accessible or structured way. As a result, many historically significant sites remained unnoticed in everyday life.',
-          'We identified four core problems:',
+          'Our research revealed a clear disconnect between historical knowledge and public awareness, not because of a lack of interest.',
+          "Residents showed a genuine curiosity about Moosburg's history. However, access to historical information was inconsistent and difficult to navigate. Knowledge was distributed across different sources and rarely presented in a way that was easy to discover or engage with. As a result, much of Moosburg's history remained hidden in everyday life.",
         ],
         imageBeforeIssues: { ar: 1157 / 599, source: MOOSBURG_IMAGES.research },
+        issuesIntro: 'Based on our findings, we identified four core problems:',
         issues: [
-          { title: 'Generational knowledge gap', desc: 'Local history existed primarily in personal memory and was not systematically passed on.' },
-          { title: 'Invisible heritage sites', desc: 'Important locations were unmarked or lacked context, despite being part of daily urban space.' },
-          { title: 'Fragmented access', desc: 'Historical information was scattered across archives, institutions, and informal storytelling.' },
-          { title: 'Low accessibility', desc: 'Existing formats were not designed for tourists, younger users, or low-barrier consumption (e.g. audio).' },
-        ],
-        stackedImages: [
-          { ar: 2880 / 1400, source: MOOSBURG_IMAGES.tafel },
-          { ar: 2880 / 1400, source: MOOSBURG_IMAGES.flyer },
+          { title: 'Generational knowledge gap', desc: 'Historical knowledge was concentrated in personal memories and older generations, with limited mechanisms for preserving and sharing it.' },
+          { title: 'Invisible heritage sites', desc: 'Many historically significant locations lacked markers or contextual information, making them easy to overlook.' },
+          { title: 'Fragmented access', desc: 'Information was dispersed across archives, institutions, and informal sources, without a central point of access.' },
+          { title: 'Low accessibility', desc: 'Existing formats did not adequately address the needs of tourists, younger audiences, or users seeking low barrier experiences such as audio content.' },
         ],
       },
       {
         label: 'Concept',
         title: 'The Result',
-        lead: true,
         paragraphs: [
           'We designed a hybrid service that connects physical historical sites with a lightweight digital layer.',
-          'The system combines on-site information with QR-based access to a mobile experience, allowing users to explore history at different levels of depth.',
+          'The system combines on site information with QR access to a mobile experience, allowing users to explore history at different levels of depth.',
         ],
         issues: [
           { title: 'Physical information boards', desc: 'Installed at key historical locations, providing immediate context in public space.' },
-          { title: 'QR-based entry points', desc: 'Flyers, benches, and site boards all allow low-friction access to deeper content.' },
+          { title: 'QR based entry points', desc: 'Flyers, benches, and site boards allow low friction access to deeper content.' },
           { title: 'Mobile experience', desc: 'A responsive web interface offering articles and audio narration for each location, plus the ability to explore additional sites.' },
           { title: 'Brand identity', desc: 'A unified visual system (name, logo, colours) ensures consistency across physical and digital touchpoints.' },
+        ],
+        stackedImages: [
+          { ar: 2880 / 1400, source: MOOSBURG_IMAGES.tafel },
+          { ar: 2880 / 1400, source: MOOSBURG_IMAGES.tafel2 },
+          { ar: 2880 / 1400, source: MOOSBURG_IMAGES.flyer },
         ],
         figmaEmbed: 'https://www.figma.com/proto/HLSnM72ozwVSgzZgtxMIwb/Moosburg-Prototype?node-id=1221-1395&t=vbOah1ph0QlDkFtL-1&scaling=scale-down&content-scaling=fixed&page-id=535%3A985&starting-point-node-id=1221%3A1395',
       },
@@ -256,76 +264,16 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
     nextId: 'munich',
   },
 
-  banking: {
-    num: '05',
-    titlePre: 'Banking',
-    titleAccent: 'Dashboard',
-    lede: 'A dense financial dashboard built for clarity in high-stakes decisions — a reusable component language and a clear visual hierarchy.',
-    chips: ['Data Viz', 'Design System', 'Interfaces'],
-    pills: ['Course Project', 'FinTech'],
-    meta: [
-      { label: 'Context', value: 'Course Project' },
-      { label: 'Tools', value: 'Figma' },
-    ],
-    deliverables: ['Design System', 'Prototype'],
-    sections: [
-      {
-        label: 'Overview',
-        title: 'Clarity in High-Stakes Decisions',
-        lead: true,
-        paragraphs: [
-          'A dense financial dashboard designed to make complex data legible and actionable.',
-          'More details coming soon.',
-        ],
-        image: { ar: 16 / 9 },
-      },
-    ],
-    nextNum: '06',
-    nextTitlePre: 'Transit',
-    nextTitleAccent: 'Wayfinding',
-    nextId: 'transit',
-  },
-
-  transit: {
-    num: '06',
-    titlePre: 'Transit',
-    titleAccent: 'Wayfinding',
-    lede: 'Rethinking how riders navigate a city transit network — from field research to a calmer, more legible wayfinding system.',
-    chips: ['Research', 'Information Architecture'],
-    pills: ['Concept', 'Mobility'],
-    meta: [
-      { label: 'Context', value: 'Concept' },
-      { label: 'Tools', value: 'Figma' },
-    ],
-    deliverables: ['Research', 'Concept'],
-    sections: [
-      {
-        label: 'Overview',
-        title: 'Calmer, More Legible Wayfinding',
-        lead: true,
-        paragraphs: [
-          'Rethinking how riders navigate a city transit network, from entry to destination.',
-          'More details coming soon.',
-        ],
-        image: { ar: 16 / 9 },
-      },
-    ],
-    nextNum: '07',
-    nextTitlePre: 'Agentic Workflow for',
-    nextTitleAccent: 'Stadtwerke München',
-    nextId: 'swm',
-  },
-
   munich: {
     num: '04',
     titlePre: 'Super',
     titleAccent: 'Munich App',
-    lede: 'A 3 day hackathon concept that unifies public transport, culture, and leisure into a single city app, designed directly in high fidelity under time pressure.',
-    chips: ['Service Concept', 'UI Prototype', 'Branding'],
-    pills: ['University Project', '2nd Semester'],
+    lede: 'A 3 day hackathon concept that unifies public transport, culture and leisure into a single city app, designed in high fidelity under time pressure.',
+    chips: ['UI Design', 'Prototyping', 'Branding'],
+    pills: ['Hackathon', 'UI Design'],
     meta: [
       { label: 'Duration',  value: '2 days'             },
-      { label: 'Context',   value: 'University Project'  },
+      { label: 'Context',   value: 'Academic Project'  },
       { label: 'Semester',  value: '2nd Semester'        },
       { label: 'Tools',     value: 'Figma'               },
     ],
@@ -336,14 +284,14 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         title: 'Munich has too many apps.',
         paragraphs: [
           'MVG for transit. Separate apps for concert tickets, museum programmes, and city events. The brief asked us to design a service for the city of Munich, and fragmentation was the obvious problem to solve.',
-          'Our idea was to consolidate everything into one platform. Not just timetables and disruption alerts, but also everything happening in the city: concerts, exhibitions, markets, and museum openings, all surfaced alongside transit options in a single, coherent experience.',
+          'Our idea was to consolidate everything into one platform. Not just timetables and disruption alerts, but also everything happening in the city: concerts, exhibitions, and museum openings, all surfaced alongside transit options in a single, coherent experience.',
         ],
       },
       {
         label: 'Process',
         title: 'Straight into design.',
         paragraphs: [
-          'With only three days available, there was little time for extensive discovery or iteration. We aligned on the core concept early and moved straight into high-fidelity design, using the screens themselves as a way to test and refine ideas.',
+          'With only two days available, there was little time for extended discovery or iteration. We aligned on the core concept early and moved straight into high fidelity design, using the screens themselves to test and refine ideas.',
           'The tight timeframe inevitably shaped the outcome. Rather than aiming for a fully polished product, we focused on defining the core experience and visual direction as clearly as possible. For a hackathon setting, that tradeoff made sense: delivering something tangible, coherent, and ready to present was more valuable than pursuing completeness.',
         ],
         stackedImages: [
@@ -353,17 +301,17 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
       },
     ],
     nextNum: '05',
-    nextTitlePre: 'Banking',
-    nextTitleAccent: 'Dashboard',
-    nextId: 'banking',
+    nextTitlePre: 'Agentic Workflow for',
+    nextTitleAccent: 'Stadtwerke München',
+    nextId: 'swm',
   },
 
   swm: {
-    num: '07',
+    num: '05',
     titlePre: 'Agentic Workflow for',
     titleAccent: 'Stadtwerke München',
-    lede: 'An AI-powered multi-agent workflow concept for Munich\'s public transport operator — automating customer inquiry handling at scale while keeping humans in control.',
-    chips: ['Multi-Agent', 'AI Automation', 'UX'],
+    lede: 'An AI powered multi agent workflow concept for Munich\'s public transport operator, automating customer inquiry handling at scale while keeping humans in control.',
+    chips: ['Multi-Agent', 'Workflow Design', 'AI Automation'],
     pills: ['Concept', 'AI & Automation'],
     meta: [
       { label: 'Context', value: 'Concept'      },
@@ -391,6 +339,25 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
    Video player
 ───────────────────────────────────────────── */
 function VideoPlayer({ source }: { source: any }) {
+  const videoRef = React.useRef<any>(null);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
   if (Platform.OS !== 'web') {
     return <View style={{ width: '100%', aspectRatio: 2880 / 1400, backgroundColor: colors.ph }} />;
   }
@@ -398,8 +365,10 @@ function VideoPlayer({ source }: { source: any }) {
   try { uri = Asset.fromModule(source).uri; } catch {}
   if (!uri) return <View style={{ width: '100%', aspectRatio: 2880 / 1400, backgroundColor: colors.ph }} />;
   return React.createElement('video', {
+    ref: videoRef,
     src: uri,
     controls: true,
+    muted: true,
     playsInline: true,
     style: { width: '100%', display: 'block', backgroundColor: '#000' },
   });
@@ -468,7 +437,7 @@ export default function ProjectDetailScreen() {
         </Reveal>
 
         {/* Hero image */}
-        <Reveal delay={80} style={s.heroImg}>
+        <Reveal delay={60} y={32} style={s.heroImg}>
           <Placeholder style={StyleSheet.absoluteFill} source={PROJECT_COVERS[id]} />
           <View style={s.heroPills}>
             {data.pills.map(p => <Pill key={p}>{p}</Pill>)}
@@ -477,16 +446,21 @@ export default function ProjectDetailScreen() {
 
         {/* Title row */}
         <View style={[s.titleRow, isNarrow && s.titleRowStack, { paddingTop: clamp(width, 40, 5, 68) }]}>
-          <Reveal style={{ flex: isNarrow ? undefined : 1.5 }}>
-            <View style={s.chips}>
-              {data.chips.map(c => <Chip key={c}>{c}</Chip>)}
-            </View>
-            <Text style={t.h1}>
-              {data.titlePre}{' '}
-              <Text style={s.serif}>{data.titleAccent}</Text>
-            </Text>
-          </Reveal>
-          <Reveal delay={80} style={{ flex: isNarrow ? undefined : 1 }}>
+          <View style={{ flex: isNarrow ? undefined : 1.5 }}>
+            <Reveal delay={100} y={16}>
+              <View style={s.chips}>
+                {data.chips.map(c => <Chip key={c}>{c}</Chip>)}
+              </View>
+            </Reveal>
+            <Reveal delay={160} y={20}>
+              <Text style={t.h1}>
+                {data.titlePre}{' '}
+                <Text style={s.serif}>{data.titleAccent}</Text>
+                {data.titlePost ? <Text style={t.h1}>{' '}{data.titlePost}</Text> : null}
+              </Text>
+            </Reveal>
+          </View>
+          <Reveal delay={220} y={16} style={{ flex: isNarrow ? undefined : 1 }}>
             <Text style={[s.lede, { fontSize: clamp(width, 17, 1.5, 21), lineHeight: clamp(width, 17, 1.5, 21) * 1.4 }]}>
               {data.lede}
             </Text>
@@ -494,7 +468,7 @@ export default function ProjectDetailScreen() {
         </View>
 
         {/* Meta table */}
-        <Reveal>
+        <Reveal delay={60} y={16}>
           <View style={[s.meta, { marginTop: clamp(width, 44, 6, 80) }]}>
             {data.meta.map(({ label, value }) => (
               <View key={label} style={[s.metaItem, isNarrow && s.metaItemNarrow]}>
@@ -527,22 +501,26 @@ export default function ProjectDetailScreen() {
           return (
             <View key={sec.label}>
               {/* Label + text body row */}
-              <Reveal style={[s.section, isNarrow && s.sectionStack, { paddingBottom: sectionPb }]}>
-                <View style={[s.sectionLabel, isNarrow && { width: 'auto' }]}>
+              <View style={[s.section, isNarrow && s.sectionStack, { paddingBottom: sectionPb }]}>
+                <Reveal y={12} style={[s.sectionLabel, isNarrow && { width: 'auto' }]}>
                   <Label accent>{sec.label}</Label>
-                </View>
+                </Reveal>
                 <View style={s.sectionBody}>
-                  <Text style={[t.h3, { marginBottom: 24 }]}>{sec.title}</Text>
-                  {sec.paragraphs.map((p, i) => (
-                    <Text key={i} style={[s.sectionPara, i === 0 && sec.lead && s.sectionParaLead]}>{p}</Text>
-                  ))}
+                  <Reveal y={20}>
+                    <Text style={[t.h3, { marginBottom: 24 }]}>{sec.title}</Text>
+                    {sec.paragraphs.map((p, i) => (
+                      <Text key={i} style={[s.sectionPara, i === 0 && sec.lead && s.sectionParaLead]}>{p}</Text>
+                    ))}
+                  </Reveal>
                   {sec.issues && !sec.imageBeforeIssues && (
                     <View style={s.issues}>
-                      {sec.issues.map(issue => (
-                        <View key={issue.title} style={[s.issue, !isNarrow && s.issueRow]}>
-                          <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
-                          <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
-                        </View>
+                      {sec.issues.map((issue, issueI) => (
+                        <Reveal key={issue.title} delay={issueI * 60} y={12}>
+                          <View style={[s.issue, !isNarrow && s.issueRow]}>
+                            <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
+                            <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
+                          </View>
+                        </Reveal>
                       ))}
                     </View>
                   )}
@@ -554,14 +532,16 @@ export default function ProjectDetailScreen() {
                     </View>
                   )}
                   {sec.postParagraphs?.map((p, i) => (
-                    <Text key={i} style={[s.sectionPara, s.postPara]}>{p}</Text>
+                    <Reveal key={i} delay={i * 60} y={12}>
+                      <Text style={[s.sectionPara, s.postPara]}>{p}</Text>
+                    </Reveal>
                   ))}
                 </View>
-              </Reveal>
+              </View>
 
               {/* Full-width image (optionally before issues list) */}
               {sec.imageBeforeIssues && (
-                <Reveal delay={60} style={{ marginTop: mt, paddingBottom: imgOnlyPb }}>
+                <Reveal delay={80} y={28} style={{ marginTop: mt, paddingBottom: imgOnlyPb }}>
                   <Placeholder
                     source={sec.imageBeforeIssues.source}
                     style={{ width: '100%', aspectRatio: sec.imageBeforeIssues.ar }}
@@ -570,12 +550,19 @@ export default function ProjectDetailScreen() {
               )}
               {sec.imageBeforeIssues && sec.issues && (
                 <View style={[{ paddingTop: clamp(width, 24, 3, 36), paddingBottom: issuesPb }, !isNarrow && { paddingLeft: 160 + 64 }]}>
+                  {sec.issuesIntro && (
+                    <Reveal y={12}>
+                      <Text style={[s.sectionPara, { marginBottom: 0 }]}>{sec.issuesIntro}</Text>
+                    </Reveal>
+                  )}
                   <View style={s.issues}>
-                    {sec.issues.map(issue => (
-                      <View key={issue.title} style={[s.issue, !isNarrow && s.issueRow]}>
-                        <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
-                        <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
-                      </View>
+                    {sec.issues.map((issue, issueI) => (
+                      <Reveal key={issue.title} delay={issueI * 60} y={12}>
+                        <View style={[s.issue, !isNarrow && s.issueRow]}>
+                          <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
+                          <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
+                        </View>
+                      </Reveal>
                     ))}
                   </View>
                 </View>
@@ -585,7 +572,7 @@ export default function ProjectDetailScreen() {
               {sec.stackedImages && (
                 <View style={{ marginTop: mt, gap: clamp(width, 20, 2, 32), paddingBottom: stackedPb }}>
                   {sec.stackedImages.map((img, imgI) => (
-                    <Reveal key={imgI} delay={imgI * 80}>
+                    <Reveal key={imgI} delay={imgI * 100} y={28}>
                       <Placeholder
                         source={img.source}
                         style={{ width: '100%', aspectRatio: img.ar }}
@@ -597,14 +584,22 @@ export default function ProjectDetailScreen() {
 
               {/* Video player */}
               {sec.videoSource && (
-                <Reveal delay={60} style={{ marginTop: mt, paddingBottom: videoPb }}>
+                <Reveal delay={80} y={28} style={{ marginTop: mt, paddingBottom: videoPb }}>
                   <VideoPlayer source={sec.videoSource} />
                 </Reveal>
               )}
 
+              {sec.postVideoParagraphs && (
+                <View style={[{ marginTop: 16, paddingBottom: videoPb }, !isNarrow && { paddingLeft: 160 + 64 }]}> 
+                  {sec.postVideoParagraphs.map((p, i) => (
+                    <Text key={i} style={s.sectionPara}>{p}</Text>
+                  ))}
+                </View>
+              )}
+
               {/* Figma prototype embed */}
               {sec.figmaEmbed && (
-                <Reveal delay={60} style={{ alignItems: 'center', marginTop: mt, paddingBottom: 40 }}>
+                <Reveal delay={80} y={28} style={{ alignItems: 'center', marginTop: mt, paddingBottom: 40 }}>
                   <FigmaEmbed url={sec.figmaEmbed} />
                 </Reveal>
               )}
@@ -624,6 +619,7 @@ export default function ProjectDetailScreen() {
                 <Text style={[s.nextTitle, { fontSize: nextSize, lineHeight: Math.round(nextSize * 1.0), letterSpacing: tracking(nextSize, -0.04) }]}>
                   {data.nextTitlePre}{' '}
                   <Text style={s.serif}>{data.nextTitleAccent}</Text>
+                  {data.nextTitlePost ? <Text>{' '}{data.nextTitlePost}</Text> : null}
                 </Text>
               </View>
               <Text style={[s.nextArrow, { fontSize: clamp(width, 30, 4, 56) }]}>→</Text>

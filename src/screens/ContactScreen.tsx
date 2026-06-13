@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, Pressable, StyleSheet, Keyboard } from 'react-native';
+import { ScrollView, View, Text, TextInput, Pressable, StyleSheet, Keyboard, Linking } from 'react-native';
 import { colors, fonts, useResponsive, clamp } from '../theme';
 import { Reveal, Label, Avail, Container } from '../components/ui';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-type FormStatus = { type: 'ok' | 'err'; msg: string } | null;
-type FormErrors = { name?: boolean; email?: boolean; message?: boolean };
+type FormStatus = { type: 'ok'; msg: string } | null;
+type FormErrors = { name?: string; email?: string; message?: string };
 
 export default function ContactScreen() {
   const { width, pad, isNarrow } = useResponsive();
@@ -14,14 +14,13 @@ export default function ContactScreen() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>(null);
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
 
   function validate(): FormErrors {
     const e: FormErrors = {};
-    if (!name.trim()) e.name = true;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) e.email = true;
-    if (!message.trim()) e.message = true;
+    if (!name.trim()) e.name = 'Please enter your name.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) e.email = 'Please enter a valid email address.';
+    if (!message.trim()) e.message = 'Please write a message.';
     return e;
   }
 
@@ -29,21 +28,12 @@ export default function ContactScreen() {
     Keyboard.dismiss();
     const e = validate();
     setErrors(e);
-    if (Object.keys(e).length > 0) {
-      setStatus({ type: 'err', msg: 'Bitte fülle die markierten Felder korrekt aus.' });
-      return;
-    }
-    setLoading(true);
-    setStatus(null);
-    setTimeout(() => {
-      const first = name.trim().split(' ')[0];
-      setLoading(false);
-      setName('');
-      setEmail('');
-      setMessage('');
-      setErrors({});
-      setStatus({ type: 'ok', msg: `Danke, ${first}! Deine Nachricht ist angekommen — ich melde mich bald.` });
-    }, 900);
+    if (Object.keys(e).length > 0) return;
+    const subject = `New message from your portfolio`;
+    const body = `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`;
+    const mailtoUrl = `mailto:coumbathily06@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    Linking.openURL(mailtoUrl);
+    setStatus({ type: 'ok', msg: 'Your email client should have opened — just hit send!' });
   }
 
   return (
@@ -63,7 +53,7 @@ export default function ContactScreen() {
           </Reveal>
           <Reveal delay={80}>
             <Text style={[s.heroTitle, { fontSize: clamp(width, 46, 9, 140), lineHeight: clamp(width, 46, 9, 140) * 0.9 }]}>
-              Let's create{'\n'}something <Text style={s.serif}>good.</Text>
+              Let's create{'\n'}<Text style={s.serif}>experiences</Text>
             </Text>
           </Reveal>
         </View>
@@ -99,22 +89,22 @@ export default function ContactScreen() {
           <Reveal delay={80} style={s.form}>
             <FormField label="Your name" error={errors.name}>
               <TextInput
-                style={[s.input, errors.name && s.inputErr]}
+                style={[s.input, errors.name ? s.inputErr : undefined]}
                 placeholder="Jane Doe"
                 placeholderTextColor="#b4b4b4"
                 value={name}
-                onChangeText={v => { setName(v); setErrors(p => ({ ...p, name: false })); }}
+                onChangeText={v => { setName(v); setErrors(p => ({ ...p, name: undefined })); }}
                 autoComplete="name"
                 returnKeyType="next"
               />
             </FormField>
             <FormField label="Email" error={errors.email}>
               <TextInput
-                style={[s.input, errors.email && s.inputErr]}
+                style={[s.input, errors.email ? s.inputErr : undefined]}
                 placeholder="jane@company.com"
                 placeholderTextColor="#b4b4b4"
                 value={email}
-                onChangeText={v => { setEmail(v); setErrors(p => ({ ...p, email: false })); }}
+                onChangeText={v => { setEmail(v); setErrors(p => ({ ...p, email: undefined })); }}
                 autoComplete="email"
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -123,11 +113,11 @@ export default function ContactScreen() {
             </FormField>
             <FormField label="Message" error={errors.message}>
               <TextInput
-                style={[s.input, s.textarea, errors.message && s.inputErr]}
+                style={[s.input, s.textarea, errors.message ? s.inputErr : undefined]}
                 placeholder="Tell me about the role, the team, or what you're working on…"
                 placeholderTextColor="#b4b4b4"
                 value={message}
-                onChangeText={v => { setMessage(v); setErrors(p => ({ ...p, message: false })); }}
+                onChangeText={v => { setMessage(v); setErrors(p => ({ ...p, message: undefined })); }}
                 multiline
                 numberOfLines={5}
                 textAlignVertical="top"
@@ -135,15 +125,13 @@ export default function ContactScreen() {
             </FormField>
             <View style={s.formFoot}>
               <Pressable
-                onPress={loading ? undefined : submit}
+                onPress={submit}
                 style={({ pressed }) => [s.submitBtn, pressed && { opacity: 0.8 }]}
               >
-                <Text style={s.submitTxt}>{loading ? 'Wird gesendet…' : 'Send message →'}</Text>
+                <Text style={s.submitTxt}>Send message →</Text>
               </Pressable>
               {status && (
-                <Text style={[s.statusTxt, status.type === 'ok' ? s.statusOk : s.statusErr]}>
-                  {status.msg}
-                </Text>
+                <Text style={[s.statusTxt, s.statusOk]}>{status.msg}</Text>
               )}
             </View>
           </Reveal>
@@ -159,19 +147,19 @@ export default function ContactScreen() {
 function FormField({ label, children, error }: {
   label: string;
   children: React.ReactNode;
-  error?: boolean;
+  error?: string;
 }) {
   return (
-    <View style={[ff.field, error && ff.fieldErr]}>
+    <View style={ff.field}>
       <Text style={ff.label}>{label}</Text>
       {children}
+      {error ? <Text style={ff.errorMsg}>{error}</Text> : null}
     </View>
   );
 }
 
 const ff = StyleSheet.create({
   field: { marginBottom: 32 },
-  fieldErr: {},
   label: {
     fontFamily: fonts.semibold,
     fontSize: 12.5,
@@ -179,6 +167,12 @@ const ff = StyleSheet.create({
     letterSpacing: 1.5,
     color: colors.muted,
     marginBottom: 11,
+  },
+  errorMsg: {
+    fontFamily: fonts.regular,
+    fontSize: 13,
+    color: colors.error,
+    marginTop: 7,
   },
 });
 
@@ -219,5 +213,4 @@ const s = StyleSheet.create({
   submitTxt: { fontFamily: fonts.semibold, fontSize: 16, color: '#fff' },
   statusTxt: { flex: 1, fontSize: 15, lineHeight: 22 },
   statusOk: { color: colors.accent, fontFamily: fonts.medium },
-  statusErr: { color: colors.error },
 });

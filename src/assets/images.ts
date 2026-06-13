@@ -23,12 +23,15 @@ export const ATOLLS_IMAGES = {
   problem:  require('../../public/atolls/atolls_problem.png'),
   workflow: require('../../public/atolls/atolls_workflow.png'),
   video:    require('../../public/atolls/atolls_projekt_web.mp4'),
+  video1:   require('../../public/atolls/atolls_projekt_teil1.mp4'),
+  video2:   require('../../public/atolls/atolls_projekt_teil2.mp4'),
 };
 
 export const MOOSBURG_IMAGES = {
   problem:  require('../../public/moosburg/moosburg_problem.png'),
   research: require('../../public/moosburg/research.png'),
   tafel:    require('../../public/moosburg/moosburg_tafel.png'),
+  tafel2:   require('../../public/moosburg/moosburg_tafel2.png'),
   flyer:    require('../../public/moosburg/moosburg_flyer.png'),
 };
 

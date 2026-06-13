@@ -34,15 +34,12 @@ export default function Footer() {
           <Pressable onPress={() => Linking.openURL('mailto:coumbathily06@gmail.com')}>
             <Text style={s.colLink}>coumbathily06@gmail.com</Text>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate('Contact' as never)}>
-            <Text style={[s.colLink, { marginTop: 8 }]}>Contact form</Text>
-          </Pressable>
         </View>
       </View>
 
       <View style={s.bottom}>
         <Text style={s.bottomTxt}>© 2026 Coumba Bathily</Text>
-        <Text style={s.bottomTxt}>Munich, DE · Designed & built from scratch</Text>
+        <Text style={s.bottomTxt}>Munich, DE</Text>
       </View>
     </View>
   );

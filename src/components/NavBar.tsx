@@ -40,7 +40,6 @@ export default function NavBar() {
     <View style={s.nav}>
       <View style={[s.inner, { paddingHorizontal: pad }]}>
         <Pressable onPress={() => navigation.navigate('Home' as never)} style={s.brand}>
-          <View style={s.dot} />
           <Text style={s.brandTxt}>Coumba Bathily</Text>
         </Pressable>
         {!isPhone && (
