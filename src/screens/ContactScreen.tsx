@@ -70,12 +70,12 @@ export default function ContactScreen() {
               <Avail />
             </View>
             <View style={{ marginBottom: 32 }}>
-              <Label style={{ marginBottom: 14 }}>Prefer email?</Label>
+              <Label style={{ marginBottom: 14 }}>Email</Label>
               <Text style={s.mail}>coumbathily06@gmail.com</Text>
             </View>
             <View>
               <Label style={{ marginBottom: 10 }}>Response time</Label>
-              <Text style={s.responseTime}>Usually within ~2 days · Munich, DE</Text>
+              <Text style={s.responseTime}>Usually within ~24h · Munich, DE</Text>
             </View>
           </Reveal>
 
