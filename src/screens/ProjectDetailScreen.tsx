@@ -340,12 +340,8 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
 ───────────────────────────────────────────── */
 function VideoPlayer({ source }: { source: any }) {
   const videoRef = React.useRef<any>(null);
-  const currentTimeRef = React.useRef(0);
   const [blobUrl, setBlobUrl] = React.useState<string | null>(null);
 
-  // Fetch video as blob so the entire file is in memory.
-  // This makes video.currentTime assignment instant, which is required for
-  // reliable seeking prevention (network-streamed video may buffer on reset).
   React.useEffect(() => {
     if (Platform.OS !== 'web') return;
     let objectUrl: string | null = null;
@@ -381,15 +377,7 @@ function VideoPlayer({ source }: { source: any }) {
       { threshold: 0.5 }
     );
     observer.observe(video);
-    const onTimeUpdate = () => { currentTimeRef.current = video.currentTime; };
-    const onSeeking = () => { video.currentTime = currentTimeRef.current; };
-    video.addEventListener('timeupdate', onTimeUpdate);
-    video.addEventListener('seeking', onSeeking);
-    return () => {
-      observer.disconnect();
-      video.removeEventListener('timeupdate', onTimeUpdate);
-      video.removeEventListener('seeking', onSeeking);
-    };
+    return () => observer.disconnect();
   }, [blobUrl]);
 
   if (Platform.OS !== 'web') {
