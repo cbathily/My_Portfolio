@@ -87,10 +87,10 @@ export default function AboutScreen() {
       {/* INTRO */}
       <Container pad={pad} style={{ paddingTop: clamp(width, 40, 5, 72) }}>
         <View style={[s.intro, isNarrow && s.introStack]}>
-          <Reveal y={32} style={[s.introImgWrap, isNarrow && { aspectRatio: 5 / 4 }]}>
+          <Reveal y={32} style={[s.introImgWrap, isNarrow && { aspectRatio: 5 / 4, flex: undefined, width: '100%' }]}>
             <Placeholder style={StyleSheet.absoluteFill} source={ABOUT_PHOTO} />
           </Reveal>
-          <Reveal delay={90} y={20} style={s.introTxt}>
+          <Reveal delay={90} y={20} style={isNarrow ? s.introTxtMobile : s.introTxt}>
             <Label accent style={{ marginBottom: 18 }}>About me</Label>
             <Text style={[s.introHeading, { fontSize: clamp(width, 34, 4.6, 60), lineHeight: clamp(width, 34, 4.6, 60) * 1.0, letterSpacing: tracking(clamp(width, 34, 4.6, 60), -0.035) }]}>
               Hi, I'm <Serif>Coumba.</Serif>
@@ -245,6 +245,7 @@ const s = StyleSheet.create({
   introStack: { flexDirection: 'column', gap: 28, alignItems: 'stretch' },
   introImgWrap: { flex: 1, aspectRatio: 5 / 6, position: 'relative', backgroundColor: colors.ph, overflow: 'hidden' },
   introTxt: { flex: 1 },
+  introTxtMobile: { width: '100%' },
   introHeading: { fontFamily: fonts.semibold, color: colors.ink, marginBottom: 20 },
   introPara: { color: colors.text, marginBottom: 20, lineHeight: 30, maxWidth: 460, fontFamily: fonts.regular },
   pullQuote: { marginTop: 6, marginBottom: 26, maxWidth: 460 },

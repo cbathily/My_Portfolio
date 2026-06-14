@@ -62,7 +62,7 @@ export default function ContactScreen() {
         <View style={[s.grid, isNarrow && s.gridStack, { marginTop: clamp(width, 56, 7, 104), paddingBottom: 80 }]}>
 
           {/* LEFT: info */}
-          <Reveal style={s.info}>
+          <Reveal style={isNarrow ? s.infoMobile : s.info}>
             <Text style={[s.introPara, { fontSize: clamp(width, 18, 1.5, 21) }]}>
               Got an open internship, a project, or just a question? I read every message and reply personally.
             </Text>
@@ -86,7 +86,7 @@ export default function ContactScreen() {
           </Reveal>
 
           {/* RIGHT: form */}
-          <Reveal delay={80} style={s.form}>
+          <Reveal delay={80} style={isNarrow ? s.infoMobile : s.form}>
             <FormField label="Your name" error={errors.name}>
               <TextInput
                 style={[s.input, errors.name ? s.inputErr : undefined]}
@@ -183,6 +183,7 @@ const s = StyleSheet.create({
   grid: { flexDirection: 'row', gap: 80, alignItems: 'flex-start' },
   gridStack: { flexDirection: 'column', gap: 48, alignItems: 'stretch' },
   info: { flex: 0.85 },
+  infoMobile: { width: '100%' },
   introPara: { color: colors.ink, lineHeight: 30, marginBottom: 32, maxWidth: 380 },
   mail: { fontFamily: fonts.semibold, fontSize: 24, color: colors.ink, letterSpacing: -0.6 },
   social: { fontFamily: fonts.regular, fontSize: 17, color: colors.text },
