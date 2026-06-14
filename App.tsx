@@ -25,6 +25,7 @@ import {
 } from '@expo-google-fonts/poppins';
 
 import { colors } from './src/theme';
+import CursorDot from './src/components/CursorDot';
 import HomeScreen from './src/screens/HomeScreen';
 import ProjectsScreen from './src/screens/ProjectsScreen';
 import ProjectDetailScreen from './src/screens/ProjectDetailScreen';
@@ -84,6 +85,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
+      <CursorDot />
       <StatusBar style="dark" />
       <NavigationContainer theme={navTheme} linking={linking}>
         <Stack.Navigator

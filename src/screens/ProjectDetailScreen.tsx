@@ -328,6 +328,67 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         ],
       },
     ],
+    nextNum: '06',
+    nextTitlePre: '',
+    nextTitleAccent: 'Vinted',
+    nextTitlePost: ': A Rebrand for Nostalgia',
+    nextId: 'vinted',
+  },
+
+  vinted: {
+    num: '06',
+    titlePre: '',
+    titleAccent: 'Vinted',
+    titlePost: ': A Rebrand for Nostalgia',
+    lede: 'A bold rebranding concept that reimagines Vinted through a retro-nostalgic lens — new brand identity, a redesigned website, a gamified mobile app extension, and a physical retail concept.',
+    chips: ['Brand Identity', 'UI Design', 'Service Design', 'Prototyping'],
+    pills: ['Academic', 'Brand Design'],
+    meta: [
+      { label: 'Duration', value: '6 months' },
+      { label: 'Context', value: 'University Project' },
+      { label: 'Semester', value: '2nd Semester' },
+      { label: 'Tools', value: 'Figma · Canva' },
+    ],
+    deliverables: ['Brand Identity', 'Website Redesign', 'App Interface'],
+    sections: [
+      {
+        label: 'Context',
+        title: 'Why Vinted Retro?',
+        paragraphs: [
+          'In our second semester rebranding module, we were asked to choose an existing brand and redesign it in a surprising or unconventional way.',
+          "We chose Vinted because it is widely used within our generation and had potential to explore a nostalgic direction. We felt the visual identity felt generic and interchangeable, with little emotional or cultural depth.",
+          "The idea was to transform a functional marketplace into a nostalgic, personality-driven ecosystem — one that specialises in vintage electronics, retro aesthetics, and nostalgic cultural items.",
+        ],
+      },
+      {
+        label: 'Process',
+        title: 'Retro Concept Development',
+        paragraphs: [
+          "We worked collaboratively in Figma using a shared canvas, where everyone contributed ideas at the same time. Instead of splitting tasks strictly, we continuously built on each other's work — combining sketches, UI ideas, and visual directions into one evolving concept.",
+          'Early on, we aligned on a clear retro direction. We explored references from vintage electronics, arcade games, and early digital interfaces, using warm, earthy tones and saturated colour palettes that shaped the entire design system.',
+          'From there, the concept developed organically through iteration and discussion. Elements were refined together rather than separately, resulting in a cohesive system with a strong visual language.',
+        ],
+      },
+      {
+        label: 'Outcome',
+        title: 'The Final Design',
+        lead: true,
+        paragraphs: [
+          'Digital Design — Website Redesign: A playful, retro-inspired marketplace featuring decorative elements, animations, and a highly expressive browsing experience that turns shopping into an adventure.',
+          'Mobile App Extension: An additional layer introducing gamification — a rewards system for buying and selling activity, collectibles discoverable in-app, power-ups that unlock special privileges, and a progress-based engagement loop beyond transactions.',
+        ],
+      },
+      {
+        label: 'Extended Concept',
+        title: 'Beyond the Screen',
+        paragraphs: [
+          'Physical Concept: A Vinted Retro flagship store brings the digital marketplace into a physical space. Users can browse and purchase retro tech, media, and collectibles in person, turning the platform into a tangible destination for retro culture enthusiasts.',
+          'Social Media Identity: A consistent retro visual language extended across social platforms — reinforcing the brand personality and strengthening the nostalgic positioning.',
+          'Website Redesign: The nostalgic aesthetic is translated into a full website redesign, creating an immersive retro browsing experience consistent with the brand identity.',
+          'App Extension: Additional gamified features and flows built on top of the existing Vinted app to deepen engagement and reinforce the rebrand across every touchpoint.',
+        ],
+      },
+    ],
     nextNum: '01',
     nextTitlePre: 'Redesign of',
     nextTitleAccent: 'PlantNet',

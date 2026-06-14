@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors, fonts, useResponsive, MAXW } from '../theme';
 
 const LINKS = [
+  { label: 'Home', screen: 'Home' },
   { label: 'Projects', screen: 'Projects' },
   { label: 'About Me', screen: 'About' },
   { label: 'Contact', screen: 'Contact' },
@@ -25,8 +26,11 @@ function NavLinkItem({ label, isActive, onPress }: {
   }, [isActive]);
   return (
     <Pressable onPress={onPress} style={s.linkWrap}>
-      <Text style={[s.link, isActive && s.linkActive]}>{label}</Text>
-      <Animated.View style={[s.underline, { transform: [{ scaleX: prog }], opacity: prog }]} />
+      <View style={s.linkRow}>
+        <Animated.Text style={[s.bracket, { opacity: prog }]}>[ </Animated.Text>
+        <Text style={[s.link, isActive && s.linkActive]}>{label}</Text>
+        <Animated.Text style={[s.bracket, { opacity: prog }]}> ]</Animated.Text>
+      </View>
     </Pressable>
   );
 }
@@ -51,7 +55,7 @@ export default function NavBar() {
                 style={s.phoneLinkWrap}
               >
                 <Text style={[s.phoneLink, route.name === screen && s.phoneLinkActive]}>
-                  {label}
+                  {route.name === screen ? `[ ${label} ]` : label}
                 </Text>
               </Pressable>
             ))}
@@ -95,13 +99,14 @@ const s = StyleSheet.create({
   /* desktop nav */
   menu: { flexDirection: 'row', alignItems: 'center', gap: 32 },
   linkWrap: { alignItems: 'center' },
+  linkRow: { flexDirection: 'row', alignItems: 'center' },
+  bracket: { fontFamily: fonts.semibold, fontSize: 15.5, color: colors.accent },
   link: { fontFamily: fonts.medium, fontSize: 15.5, color: colors.text },
   linkActive: { color: colors.ink },
-  underline: { height: 1.5, width: '100%', backgroundColor: colors.ink, marginTop: 3 },
 
   /* phone nav — compact inline links */
-  menuPhone: { flexDirection: 'row', alignItems: 'center', gap: 18 },
+  menuPhone: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   phoneLinkWrap: { paddingVertical: 4 },
   phoneLink: { fontFamily: fonts.medium, fontSize: 12.5, color: colors.text, letterSpacing: 0.2 },
-  phoneLinkActive: { color: colors.ink, fontFamily: fonts.semibold },
+  phoneLinkActive: { color: colors.accent, fontFamily: fonts.semibold },
 });

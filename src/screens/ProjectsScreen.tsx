@@ -77,6 +77,17 @@ const PROJECTS: Project[] = [
     desc: 'An AI powered multi agent workflow concept for Munich\'s public transport operator, automating customer inquiry handling at scale.',
     ar: 4 / 3,
   },
+  {
+    id: 'vinted',
+    num: '06',
+    title: 'Vinted: A Rebrand for Nostalgia',
+    cats: ['brand'],
+    alt: true,
+    pills: ['Academic', 'Brand Design'],
+    chips: ['Brand Identity', 'UI Design', 'Service Design', 'Prototyping'],
+    desc: 'A rebranding concept that reimagines Vinted through a retro-nostalgic lens — brand identity, website redesign, gamified app extension, and a physical retail concept.',
+    ar: 4 / 3,
+  },
 ];
 
 const FILTERS: Filter[] = [
@@ -84,6 +95,7 @@ const FILTERS: Filter[] = [
   { label: 'UX Design', key: 'ux' },
   { label: 'Prototyping', key: 'proto' },
   { label: 'AI & Automation', key: 'ai' },
+  { label: 'Brand Design', key: 'brand' },
 ];
 
 export default function ProjectsScreen() {
