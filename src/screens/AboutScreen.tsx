@@ -87,7 +87,7 @@ export default function AboutScreen() {
       {/* INTRO */}
       <Container pad={pad} style={{ paddingTop: clamp(width, 40, 5, 72) }}>
         <View style={[s.intro, isNarrow && s.introStack]}>
-          <Reveal y={32} style={[s.introImgWrap, isNarrow && { aspectRatio: 5 / 4, flex: undefined, width: '100%' }]}>
+          <Reveal y={32} style={isNarrow ? s.introImgWrapNarrow : s.introImgWrap}>
             <Placeholder style={StyleSheet.absoluteFill} source={ABOUT_PHOTO} />
           </Reveal>
           <Reveal delay={90} y={20} style={isNarrow ? s.introTxtMobile : s.introTxt}>
@@ -244,6 +244,7 @@ const s = StyleSheet.create({
   intro: { flexDirection: 'row', gap: 64, alignItems: 'flex-start' },
   introStack: { flexDirection: 'column', gap: 28, alignItems: 'stretch' },
   introImgWrap: { flex: 1, aspectRatio: 5 / 6, position: 'relative', backgroundColor: colors.ph, overflow: 'hidden' },
+  introImgWrapNarrow: { width: '100%', aspectRatio: 5 / 4, position: 'relative', backgroundColor: colors.ph, overflow: 'hidden' },
   introTxt: { flex: 1 },
   introTxtMobile: { width: '100%' },
   introHeading: { fontFamily: fonts.semibold, color: colors.ink, marginBottom: 20 },
