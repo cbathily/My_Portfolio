@@ -340,10 +340,12 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
 ───────────────────────────────────────────── */
 function VideoPlayer({ source }: { source: any }) {
   const videoRef = React.useRef<any>(null);
+  const currentTimeRef = React.useRef(0);
   const [blobUrl, setBlobUrl] = React.useState<string | null>(null);
-  const [playing, setPlaying] = React.useState(false);
-  const [muted, setMuted] = React.useState(true);
 
+  // Fetch video as blob so the entire file is in memory.
+  // This makes video.currentTime assignment instant, which is required for
+  // reliable seeking prevention (network-streamed video may buffer on reset).
   React.useEffect(() => {
     if (Platform.OS !== 'web') return;
     let objectUrl: string | null = null;
@@ -379,29 +381,16 @@ function VideoPlayer({ source }: { source: any }) {
       { threshold: 0.5 }
     );
     observer.observe(video);
-    const onPlay = () => setPlaying(true);
-    const onPause = () => setPlaying(false);
-    video.addEventListener('play', onPlay);
-    video.addEventListener('pause', onPause);
+    const onTimeUpdate = () => { currentTimeRef.current = video.currentTime; };
+    const onSeeking = () => { video.currentTime = currentTimeRef.current; };
+    video.addEventListener('timeupdate', onTimeUpdate);
+    video.addEventListener('seeking', onSeeking);
     return () => {
       observer.disconnect();
-      video.removeEventListener('play', onPlay);
-      video.removeEventListener('pause', onPause);
+      video.removeEventListener('timeupdate', onTimeUpdate);
+      video.removeEventListener('seeking', onSeeking);
     };
   }, [blobUrl]);
-
-  const togglePlay = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) v.play().catch(() => {}); else v.pause();
-  };
-
-  const toggleMute = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = !v.muted;
-    setMuted(v.muted);
-  };
 
   if (Platform.OS !== 'web') {
     return <View style={{ width: '100%', aspectRatio: 2880 / 1400, backgroundColor: colors.ph }} />;
@@ -409,50 +398,15 @@ function VideoPlayer({ source }: { source: any }) {
   if (!blobUrl) {
     return <View style={{ width: '100%', aspectRatio: 2880 / 1400, backgroundColor: colors.ph }} />;
   }
-
-  return React.createElement('div', { style: { position: 'relative', width: '100%', backgroundColor: '#000', lineHeight: 0 } },
-    React.createElement('video', {
-      ref: videoRef,
-      src: blobUrl,
-      muted: true,
-      playsInline: true,
-      style: { width: '100%', display: 'block' },
-    }),
-    React.createElement('div', {
-      style: {
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        padding: '10px 14px',
-        background: 'linear-gradient(transparent, rgba(0,0,0,0.5))',
-        display: 'flex', alignItems: 'center', gap: 10,
-      },
-    },
-      React.createElement('button', {
-        onClick: togglePlay,
-        style: btnStyle,
-      }, playing ? '⏸' : '▶'),
-      React.createElement('button', {
-        onClick: toggleMute,
-        style: btnStyle,
-      }, muted ? '🔇' : '🔊'),
-    ),
-  );
+  return React.createElement('video', {
+    ref: videoRef,
+    src: blobUrl,
+    controls: true,
+    muted: true,
+    playsInline: true,
+    style: { width: '100%', display: 'block', backgroundColor: '#000' },
+  });
 }
-
-const btnStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.15)',
-  border: '1px solid rgba(255,255,255,0.25)',
-  borderRadius: '50%',
-  width: 34,
-  height: 34,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  color: '#fff',
-  fontSize: 13,
-  backdropFilter: 'blur(6px)',
-  flexShrink: 0,
-};
 
 /* ─────────────────────────────────────────────
    Figma prototype embed
