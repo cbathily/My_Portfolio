@@ -340,6 +340,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
 ───────────────────────────────────────────── */
 function VideoPlayer({ source }: { source: any }) {
   const videoRef = React.useRef<any>(null);
+  const currentTimeRef = React.useRef(0);
 
   React.useEffect(() => {
     const video = videoRef.current;
@@ -355,7 +356,15 @@ function VideoPlayer({ source }: { source: any }) {
       { threshold: 0.5 }
     );
     observer.observe(video);
-    return () => observer.disconnect();
+    const onTimeUpdate = () => { currentTimeRef.current = video.currentTime; };
+    const onSeeking = () => { video.currentTime = currentTimeRef.current; };
+    video.addEventListener('timeupdate', onTimeUpdate);
+    video.addEventListener('seeking', onSeeking);
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('timeupdate', onTimeUpdate);
+      video.removeEventListener('seeking', onSeeking);
+    };
   }, []);
 
   if (Platform.OS !== 'web') {

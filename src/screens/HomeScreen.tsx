@@ -158,7 +158,7 @@ function Mosaic({ navigation, isNarrow }: MosaicProps) {
   const [p0, p1, p2, p3, p4] = HIGHLIGHTS;
 
   if (isNarrow) {
-    // Mobile: hero + 2+2 grid
+    // Mobile: hero + 2 tiles side by side
     return (
       <View>
         <Tile proj={p0} onPress={() => nav(p0.id)} style={{ aspectRatio: 4 / 3, width: '100%' }} large />
@@ -166,27 +166,17 @@ function Mosaic({ navigation, isNarrow }: MosaicProps) {
           <Tile proj={p1} onPress={() => nav(p1.id)} style={{ flex: 1, aspectRatio: 1 }} />
           <Tile proj={p2} onPress={() => nav(p2.id)} style={{ flex: 1, aspectRatio: 1 }} />
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Tile proj={p3} onPress={() => nav(p3.id)} style={{ flex: 1, aspectRatio: 1 }} />
-          <Tile proj={p4} onPress={() => nav(p4.id)} style={{ flex: 1, aspectRatio: 1 }} />
-        </View>
       </View>
     );
   }
 
-  // Desktop: big tile left (60%) + 2×2 grid right (40%)
+  // Desktop: big tile left (60%) + 2 stacked tiles right (40%)
   return (
     <View style={{ flexDirection: 'row', flex: 1 }}>
       <Tile proj={p0} onPress={() => nav(p0.id)} style={{ flex: 6 }} large />
       <View style={{ flex: 4, flexDirection: 'column' }}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Tile proj={p1} onPress={() => nav(p1.id)} style={{ flex: 1 }} />
-          <Tile proj={p2} onPress={() => nav(p2.id)} style={{ flex: 1 }} />
-        </View>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Tile proj={p3} onPress={() => nav(p3.id)} style={{ flex: 1 }} />
-          <Tile proj={p4} onPress={() => nav(p4.id)} style={{ flex: 1 }} />
-        </View>
+        <Tile proj={p1} onPress={() => nav(p1.id)} style={{ flex: 1 }} />
+        <Tile proj={p2} onPress={() => nav(p2.id)} style={{ flex: 1 }} />
       </View>
     </View>
   );
@@ -466,7 +456,7 @@ const s = StyleSheet.create({
     top: 12, left: 14,
     fontSize: 11,
     fontFamily: fonts.semibold,
-    color: 'rgba(255,255,255,0.7)',
+    color: '#fff',
     zIndex: 2,
   },
   tileScrim:   { position: 'absolute', left: 0, right: 0, bottom: 0, height: '55%', zIndex: 1,
