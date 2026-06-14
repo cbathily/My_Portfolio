@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet, Linking } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors, fonts, useResponsive, MAXW } from '../theme';
 
@@ -17,22 +17,11 @@ export default function Footer() {
             <Text style={s.serif}>care.</Text>
           </Text>
           <Text style={s.open}>Currently open to an internship starting Autumn 2026.</Text>
+        </View>
+
+        <View style={s.btnCol}>
           <Pressable onPress={() => navigation.navigate('Contact' as never)} style={({ pressed }) => [s.btn, pressed && { opacity: 0.75 }]}>
             <Text style={s.btnTxt}>Get in touch →</Text>
-          </Pressable>
-        </View>
-
-        <View style={s.col}>
-          <Text style={s.colHead}>Socials</Text>
-          {['LinkedIn', 'Instagram', 'Behance'].map(label => (
-            <Text key={label} style={s.colLink}>{label}</Text>
-          ))}
-        </View>
-
-        <View style={s.col}>
-          <Text style={s.colHead}>Direct</Text>
-          <Pressable onPress={() => Linking.openURL('mailto:coumbathily06@gmail.com')}>
-            <Text style={s.colLink}>coumbathily06@gmail.com</Text>
           </Pressable>
         </View>
       </View>
@@ -48,10 +37,10 @@ export default function Footer() {
 const s = StyleSheet.create({
   foot: { paddingTop: 40, maxWidth: MAXW, alignSelf: 'center', width: '100%' },
   rule: { borderTopWidth: 1.5, borderTopColor: colors.line, marginBottom: 48 },
-  grid: { flexDirection: 'row', gap: 48, paddingBottom: 56, flexWrap: 'wrap', alignItems: 'flex-start' },
-  gridPhone: { flexDirection: 'column', gap: 32 },
-  mainCol: { flex: 1.4, minWidth: 200 },
-  col: { minWidth: 130 },
+  grid: { flexDirection: 'row', gap: 48, paddingBottom: 56, alignItems: 'center', justifyContent: 'space-between' },
+  gridPhone: { flexDirection: 'column', gap: 24, alignItems: 'flex-start' },
+  mainCol: { flex: 1, minWidth: 200 },
+  btnCol: { alignItems: 'flex-end' },
   heading: {
     fontFamily: fonts.semibold,
     fontSize: 28,
@@ -71,8 +60,6 @@ const s = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   btnTxt: { fontFamily: fonts.semibold, fontSize: 15, color: colors.ink },
-  colHead: { fontFamily: fonts.bold, fontSize: 14, color: colors.ink, marginBottom: 12 },
-  colLink: { fontFamily: fonts.regular, fontSize: 15, color: colors.muted },
   bottom: {
     flexDirection: 'row',
     justifyContent: 'space-between',

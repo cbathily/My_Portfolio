@@ -73,12 +73,6 @@ export default function ContactScreen() {
               <Label style={{ marginBottom: 14 }}>Prefer email?</Label>
               <Text style={s.mail}>coumbathily06@gmail.com</Text>
             </View>
-            <View style={{ marginBottom: 32 }}>
-              <Label style={{ marginBottom: 14 }}>Find me online</Label>
-              {['LinkedIn', 'Instagram', 'Behance'].map(l => (
-                <Text key={l} style={[s.social, { marginBottom: 10 }]}>{l} ↗</Text>
-              ))}
-            </View>
             <View>
               <Label style={{ marginBottom: 10 }}>Response time</Label>
               <Text style={s.responseTime}>Usually within ~2 days · Munich, DE</Text>
@@ -186,7 +180,6 @@ const s = StyleSheet.create({
   infoMobile: { width: '100%' },
   introPara: { color: colors.ink, lineHeight: 30, marginBottom: 32, maxWidth: 380 },
   mail: { fontFamily: fonts.semibold, fontSize: 24, color: colors.ink, letterSpacing: -0.6 },
-  social: { fontFamily: fonts.regular, fontSize: 17, color: colors.text },
   responseTime: { fontFamily: fonts.medium, fontSize: 17, color: colors.ink },
   form: { flex: 1.15 },
   input: {
