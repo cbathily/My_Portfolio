@@ -29,6 +29,7 @@ type CaseSection = {
   figmaEmbed?: string;
   figmaBeforeIssues?: string;
   videoSource?: any;
+  subSection?: boolean;
 };
 
 type ProjectDetail = {
@@ -387,11 +388,11 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         title: 'The Final Design',
         lead: true,
         paragraphs: [
-          'Digital Design',
+          'The final design delivers two connected experiences, each brought to life with an interactive prototype.',
           'Website Redesign. A playful, retro-inspired marketplace featuring decorative Super Mario-style elements, animations, and a highly expressive browsing experience.',
         ],
         figmaBeforeIssues: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=800-7532&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=800%3A774&show-proto-sidebar=1',
-        issuesIntro: 'Mobile App Extension. An additional app layer introducing gamification:',
+        issuesIntro: 'Mobile App Extension. An additional app layer introducing gamification features on top of the core marketplace:',
         issues: [
           { title: 'Rewards system for buying and selling activity', desc: '' },
           { title: 'Unlockable badges and perks', desc: '' },
@@ -401,8 +402,9 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         figmaEmbed: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=921-909&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=921%3A909&show-proto-sidebar=1',
       },
       {
-        label: 'Extended Concept',
+        label: 'Physical Concept',
         title: 'Physical Concept',
+        subSection: true,
         paragraphs: [
           'A Vinted Retro flagship store that brings the digital marketplace into a physical space. Users can browse and purchase retro tech, media, and collectibles in person, turning the platform into a tangible shopping experience for collectors and enthusiasts.',
           'Beyond the core store experience, the concept extends into physical brand touchpoints such as merchandise, printed magazines, and out-of-home advertising. These elements strengthen the retro world beyond the screen and embed the brand into everyday environments.',
@@ -415,6 +417,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
       {
         label: 'Social Media Identity',
         title: 'Social Media Identity',
+        subSection: true,
         paragraphs: [
           'A consistent visual language extended across social platforms to build community and strengthen the niche positioning.',
         ],
@@ -616,25 +619,31 @@ export default function ProjectDetailScreen() {
           return (
             <View key={sec.label}>
               {/* Label + text body row */}
-              <View style={[s.section, isNarrow && s.sectionStack, { paddingBottom: sectionPb }]}>
+              <View style={[s.section, isNarrow && s.sectionStack, { paddingBottom: sectionPb }, sec.subSection && { paddingTop: 28 }]}>
                 <Reveal y={12} style={[s.sectionLabel, isNarrow && { width: 'auto' }]}>
                   <Label accent>{sec.label}</Label>
                 </Reveal>
                 <View style={s.sectionBody}>
                   <Reveal y={20}>
-                    <Text style={[t.h3, { marginBottom: 24 }]}>{sec.title}</Text>
+                    <Text style={sec.subSection ? [s.subSectionTitle, { marginBottom: 16 }] : [t.h3, { marginBottom: 24 }]}>{sec.title}</Text>
                     {sec.paragraphs.map((p, i) => (
                       <Text key={i} style={[s.sectionPara, i === 0 && sec.lead && s.sectionParaLead]}>{p}</Text>
                     ))}
                   </Reveal>
-                  {sec.issues && !sec.imageBeforeIssues && (
+                  {sec.issues && !sec.imageBeforeIssues && !sec.figmaBeforeIssues && (
                     <View style={s.issues}>
                       {sec.issues.map((issue, issueI) => (
                         <Reveal key={issue.title} delay={issueI * 60} y={12}>
-                          <View style={[s.issue, !isNarrow && s.issueRow]}>
-                            <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
-                            <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
-                          </View>
+                          {issue.desc ? (
+                            <View style={[s.issue, !isNarrow && s.issueRow]}>
+                              <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
+                              <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
+                            </View>
+                          ) : (
+                            <View style={s.issue}>
+                              <Text style={s.issueItem}>{issue.title}</Text>
+                            </View>
+                          )}
                         </Reveal>
                       ))}
                     </View>
@@ -678,10 +687,16 @@ export default function ProjectDetailScreen() {
                   <View style={s.issues}>
                     {sec.issues.map((issue, issueI) => (
                       <Reveal key={issue.title} delay={issueI * 60} y={12}>
-                        <View style={[s.issue, !isNarrow && s.issueRow]}>
-                          <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
-                          <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
-                        </View>
+                        {issue.desc ? (
+                          <View style={[s.issue, !isNarrow && s.issueRow]}>
+                            <Text style={[s.issueTitle, !isNarrow && s.issueTitleCol]}>{issue.title}</Text>
+                            <Text style={[s.issueDesc, !isNarrow && { flex: 1 }]}>{issue.desc}</Text>
+                          </View>
+                        ) : (
+                          <View style={s.issue}>
+                            <Text style={s.issueItem}>{issue.title}</Text>
+                          </View>
+                        )}
                       </Reveal>
                     ))}
                   </View>
@@ -798,6 +813,7 @@ const s = StyleSheet.create({
   sectionPara: { color: colors.text, fontFamily: fonts.regular, fontSize: 17, lineHeight: 27, marginBottom: 16, maxWidth: 660 },
   sectionParaLead: { color: colors.ink, fontSize: 19, lineHeight: 30 },
   postPara: { marginTop: 8, color: colors.muted },
+  subSectionTitle: { fontFamily: fonts.semibold, fontSize: 18, color: colors.ink, letterSpacing: -0.2 },
 
   // Issues — two-column on desktop, stacked on phone
   issues: { marginTop: 34, borderTopWidth: 1, borderTopColor: colors.line, maxWidth: 760 },
@@ -812,6 +828,7 @@ const s = StyleSheet.create({
   },
   issueTitleCol: { width: 210, paddingTop: 2 },
   issueDesc: { color: colors.text, fontFamily: fonts.regular, fontSize: 16, lineHeight: 24 },
+  issueItem: { fontFamily: fonts.regular, fontSize: 17, lineHeight: 26, color: colors.text },
 
   shot: { width: '100%', backgroundColor: colors.ph, marginTop: 38 },
 
