@@ -4,7 +4,7 @@ import { Asset } from 'expo-asset';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors, fonts, useResponsive, clamp, typeScale, tracking } from '../theme';
 import { Reveal, Label, Placeholder, Chip, Pill, Container } from '../components/ui';
-import { PROJECT_COVERS, PLANTNET_IMAGES, MUNICH_IMAGES, ATOLLS_IMAGES, MOOSBURG_IMAGES } from '../assets/images';
+import { PROJECT_COVERS, PLANTNET_IMAGES, MUNICH_IMAGES, ATOLLS_IMAGES, MOOSBURG_IMAGES, VINTED_IMAGES } from '../assets/images';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -27,6 +27,7 @@ type CaseSection = {
   issuesIntro?: string;
   stackedImages?: { ar: number; source?: any }[];
   figmaEmbed?: string;
+  figmaBeforeIssues?: string;
   videoSource?: any;
 };
 
@@ -361,7 +362,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           'What if Vinted specialised exclusively in vintage electronics, retro media, and classic gaming culture?',
           'The idea was to transform a functional marketplace into a nostalgic, personality-driven ecosystem.',
         ],
-        imageBeforeIssues: { ar: 16 / 9, source: undefined },
+        imageBeforeIssues: { ar: 16 / 9, source: VINTED_IMAGES.currently },
       },
       {
         label: 'Process',
@@ -378,8 +379,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           { title: 'Interaction concepts', desc: 'Initial ideas for gamified platform features that make buying and selling feel more playful and engaging.' },
         ],
         stackedImages: [
-          { ar: 16 / 9, source: undefined },
-          { ar: 16 / 9, source: undefined },
+          { ar: 16 / 9, source: VINTED_IMAGES.process },
         ],
       },
       {
@@ -390,7 +390,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           'Digital Design',
           'Website Redesign. A playful, retro-inspired marketplace featuring decorative Super Mario-style elements, animations, and a highly expressive browsing experience.',
         ],
-        imageBeforeIssues: { ar: 16 / 9, source: undefined },
+        figmaBeforeIssues: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=800-7532&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=800%3A774&show-proto-sidebar=1',
         issuesIntro: 'Mobile App Extension. An additional app layer introducing gamification:',
         issues: [
           { title: 'Rewards system for buying and selling activity', desc: '' },
@@ -398,6 +398,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           { title: 'Unlockable retro collectibles such as Pac-Man style gameplay', desc: '' },
           { title: 'Progress-based engagement loop beyond transactions', desc: '' },
         ],
+        figmaEmbed: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=921-909&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=921%3A909&show-proto-sidebar=1',
       },
       {
         label: 'Extended Concept',
@@ -407,7 +408,8 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           'Beyond the core store experience, the concept extends into physical brand touchpoints such as merchandise, printed magazines, and out-of-home advertising. These elements strengthen the retro world beyond the screen and embed the brand into everyday environments.',
         ],
         stackedImages: [
-          { ar: 16 / 9, source: undefined },
+          { ar: 16 / 9, source: VINTED_IMAGES.store },
+          { ar: 16 / 9, source: VINTED_IMAGES.marketing },
         ],
       },
       {
@@ -416,23 +418,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         paragraphs: [
           'A consistent visual language extended across social platforms to build community and strengthen the niche positioning.',
         ],
-        imageBeforeIssues: { ar: 16 / 9, source: undefined },
-      },
-      {
-        label: 'Website Redesign',
-        title: 'Website Redesign',
-        paragraphs: [
-          'The nostalgic aesthetic translated into a full website redesign, creating an immersive retro browsing experience consistent with the brand identity.',
-        ],
-        imageBeforeIssues: { ar: 16 / 9, source: undefined },
-      },
-      {
-        label: 'App Extension',
-        title: 'App Extension',
-        paragraphs: [
-          'Additional gamified features and flows built on top of the existing Vinted app to deepen engagement and reinforce the rebrand across every touchpoint.',
-        ],
-        imageBeforeIssues: { ar: 16 / 9, source: undefined },
+        imageBeforeIssues: { ar: 16 / 9, source: VINTED_IMAGES.socials },
       },
     ],
     nextNum: '05',
@@ -616,7 +602,7 @@ export default function ProjectDetailScreen() {
 
         {/* Case sections */}
         {data.sections.map(sec => {
-          const hasFullWidth = !!(sec.imageBeforeIssues || sec.stackedImages || sec.figmaEmbed || sec.videoSource);
+          const hasFullWidth = !!(sec.imageBeforeIssues || sec.figmaBeforeIssues || sec.stackedImages || sec.figmaEmbed || sec.videoSource);
           const sectionPb = hasFullWidth ? 0 : clamp(width, 56, 7, 104);
           const bottomPb  = clamp(width, 56, 7, 104);
           const mt        = clamp(width, 28, 4, 44);
@@ -677,7 +663,12 @@ export default function ProjectDetailScreen() {
                   />
                 </Reveal>
               )}
-              {sec.imageBeforeIssues && sec.issues && (
+              {sec.figmaBeforeIssues && (
+                <Reveal delay={80} y={28} style={{ alignItems: 'center', marginTop: mt, paddingBottom: imgOnlyPb }}>
+                  <FigmaEmbed url={sec.figmaBeforeIssues} />
+                </Reveal>
+              )}
+              {(sec.imageBeforeIssues || sec.figmaBeforeIssues) && sec.issues && (
                 <View style={[{ paddingTop: clamp(width, 24, 3, 36), paddingBottom: issuesPb }, !isNarrow && { paddingLeft: 160 + 64 }]}>
                   {sec.issuesIntro && (
                     <Reveal y={12}>

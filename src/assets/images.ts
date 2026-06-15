@@ -6,6 +6,7 @@ export const PROJECT_COVERS: Record<string, ImageSourcePropType> = {
   moosburg: require('../../public/moosburg/moosburg_cover.png'),
   munich:   require('../../public/munich_app/munich_app_cover.png'),
   swm:      require('../../public/swm.png'),
+  vinted:   require('../../public/vinted/vinted_cover.png'),
 };
 
 export const PLANTNET_IMAGES = {
@@ -33,6 +34,14 @@ export const MOOSBURG_IMAGES = {
   tafel:    require('../../public/moosburg/moosburg_tafel.png'),
   tafel2:   require('../../public/moosburg/moosburg_tafel2.png'),
   flyer:    require('../../public/moosburg/moosburg_flyer.png'),
+};
+
+export const VINTED_IMAGES = {
+  currently: require('../../public/vinted/vinted_currently.png'),
+  process:   require('../../public/vinted/vinted_process.png'),
+  store:     require('../../public/vinted/vinted_store.png'),
+  marketing: require('../../public/vinted/vinted_marketing.png'),
+  socials:   require('../../public/vinted/vinted_socials.png'),
 };
 
 export const ABOUT_PHOTO: ImageSourcePropType = require('../../public/about_me/profile.jpg');
