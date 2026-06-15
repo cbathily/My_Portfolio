@@ -340,7 +340,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
     titlePre: '',
     titleAccent: 'Vinted',
     titlePost: ': A Rebrand for Nostalgia',
-    lede: 'A bold rebranding concept that reimagines Vinted through a retro-nostalgic lens — new brand identity, a redesigned website, a gamified mobile app extension, and a physical retail concept.',
+    lede: 'A rebranding concept that reimagines Vinted through a retro-nostalgic lens. Brand identity, website redesign, gamified app extension, and a physical retail concept.',
     chips: ['Brand Identity', 'UI Design', 'Service Design', 'Prototyping'],
     pills: ['Academic', 'Brand Design'],
     meta: [
@@ -356,17 +356,26 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         title: 'Why Vinted Retro?',
         paragraphs: [
           'In our second semester rebranding module, we were asked to choose an existing brand and redesign it in a surprising or unconventional way.',
-          "We chose Vinted because it is widely used within our generation and had potential to explore a nostalgic direction. We felt the visual identity felt generic and interchangeable, with little emotional or cultural depth.",
-          "The idea was to transform a functional marketplace into a nostalgic, personality-driven ecosystem — one that specialises in vintage electronics, retro aesthetics, and nostalgic cultural items.",
+          'We chose Vinted because it is widely used within our generation and had potential to explore a nostalgic direction. We felt the visual identity felt generic and interchangeable, with little emotional or cultural depth.',
+          'The idea was to transform a functional marketplace into a nostalgic, personality-driven ecosystem.',
         ],
+        imageBeforeIssues: { ar: 16 / 9, source: undefined },
       },
       {
         label: 'Process',
         title: 'Retro Concept Development',
         paragraphs: [
-          "We worked collaboratively in Figma using a shared canvas, where everyone contributed ideas at the same time. Instead of splitting tasks strictly, we continuously built on each other's work — combining sketches, UI ideas, and visual directions into one evolving concept.",
-          'Early on, we aligned on a clear retro direction. We explored references from vintage electronics, arcade games, and early digital interfaces, using warm, earthy tones and saturated colour palettes that shaped the entire design system.',
-          'From there, the concept developed organically through iteration and discussion. Elements were refined together rather than separately, resulting in a cohesive system with a strong visual language.',
+          'We worked collaboratively in Figma using a shared canvas, where everyone contributed ideas at the same time. Instead of splitting tasks strictly, we continuously built on each others work, combining sketches, UI ideas, and visual directions into one evolving concept.',
+          'Early on, we aligned on a clear retro direction. We explored references from vintage electronics, arcade games, and early digital interfaces. We used warm, earthy tones and saturated colour palettes that shaped the entire design system.',
+          'Key outcomes of the process included:',
+        ],
+        issues: [
+          { title: 'Brand Identity', desc: 'A consistent design style inspired by early gaming interfaces, arcade aesthetics, and nostalgia that represents the platform.' },
+          { title: 'Interaction concepts', desc: 'Initial ideas for gamified platform features that make buying and selling feel more playful and engaging.' },
+        ],
+        stackedImages: [
+          { ar: 16 / 9, source: undefined },
+          { ar: 16 / 9, source: undefined },
         ],
       },
       {
@@ -374,19 +383,51 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         title: 'The Final Design',
         lead: true,
         paragraphs: [
-          'Digital Design — Website Redesign: A playful, retro-inspired marketplace featuring decorative elements, animations, and a highly expressive browsing experience that turns shopping into an adventure.',
-          'Mobile App Extension: An additional layer introducing gamification — a rewards system for buying and selling activity, collectibles discoverable in-app, power-ups that unlock special privileges, and a progress-based engagement loop beyond transactions.',
+          'Digital Design: Website Redesign. A playful, retro-inspired marketplace featuring decorative Super Mario-style elements, animations, and a highly expressive browsing experience.',
+        ],
+        imageBeforeIssues: { ar: 16 / 9, source: undefined },
+        issuesIntro: 'Mobile App Extension:',
+        issues: [
+          { title: 'Rewards system', desc: 'Points and badges for buying and selling activity.' },
+          { title: 'Collectibles', desc: 'Unique items you can discover and unlock in-app.' },
+          { title: 'Power-ups', desc: 'Special privileges that unlock through activity and engagement.' },
+          { title: 'Progress-based loop', desc: 'Engagement mechanics that go beyond individual transactions.' },
         ],
       },
       {
         label: 'Extended Concept',
-        title: 'Beyond the Screen',
+        title: 'Physical Concept',
         paragraphs: [
-          'Physical Concept: A Vinted Retro flagship store brings the digital marketplace into a physical space. Users can browse and purchase retro tech, media, and collectibles in person, turning the platform into a tangible destination for retro culture enthusiasts.',
-          'Social Media Identity: A consistent retro visual language extended across social platforms — reinforcing the brand personality and strengthening the nostalgic positioning.',
-          'Website Redesign: The nostalgic aesthetic is translated into a full website redesign, creating an immersive retro browsing experience consistent with the brand identity.',
-          'App Extension: Additional gamified features and flows built on top of the existing Vinted app to deepen engagement and reinforce the rebrand across every touchpoint.',
+          'A Vinted Retro flagship store that brings the digital marketplace into a physical space. Users can browse and purchase retro tech, media, and collectibles in person, turning the platform into a tangible destination for retro culture enthusiasts.',
+          'Beyond the core store experience, the concept extends into physical brand touchpoints such as merchandise, printed magazines, and in-store events that strengthen the niche positioning.',
         ],
+        stackedImages: [
+          { ar: 16 / 9, source: undefined },
+        ],
+      },
+      {
+        label: 'Social Media Identity',
+        title: 'Social Media Identity',
+        paragraphs: [
+          'A consistent visual language extended across social platforms to reinforce and strengthen the retro positioning.',
+        ],
+        imageBeforeIssues: { ar: 16 / 9, source: undefined },
+      },
+      {
+        label: 'Website Redesign',
+        title: 'Website Redesign',
+        paragraphs: [
+          'The nostalgic aesthetic translated into a full website redesign, creating an immersive retro browsing experience consistent with the brand identity.',
+        ],
+        imageBeforeIssues: { ar: 16 / 9, source: undefined },
+      },
+      {
+        label: 'App Extension',
+        title: 'App Extension',
+        paragraphs: [
+          'Additional gamified features and flows built on top of the existing Vinted app to deepen engagement and reinforce the rebrand across every touchpoint.',
+        ],
+        imageBeforeIssues: { ar: 16 / 9, source: undefined },
       },
     ],
     nextNum: '01',

@@ -85,7 +85,7 @@ const PROJECTS: Project[] = [
     alt: true,
     pills: ['Academic', 'Brand Design'],
     chips: ['Brand Identity', 'UI Design', 'Service Design', 'Prototyping'],
-    desc: 'A rebranding concept that reimagines Vinted through a retro-nostalgic lens — brand identity, website redesign, gamified app extension, and a physical retail concept.',
+    desc: 'A rebranding concept that reimagines Vinted through a retro-nostalgic lens. Brand identity, website redesign, gamified app extension, and a physical retail concept.',
     ar: 4 / 3,
   },
 ];
