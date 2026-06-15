@@ -28,6 +28,7 @@ type CaseSection = {
   stackedImages?: { ar: number; source?: any }[];
   figmaEmbed?: string;
   figmaBeforeIssues?: string;
+  figmaBeforeIssuesLabel?: string;
   videoSource?: any;
   subSection?: boolean;
 };
@@ -391,15 +392,16 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           'The final design delivers two connected experiences, each brought to life with an interactive prototype.',
           'Website Redesign. A playful, retro-inspired marketplace featuring decorative Super Mario-style elements, animations, and a highly expressive browsing experience.',
         ],
-        figmaBeforeIssues: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=800-7532&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=800%3A774&show-proto-sidebar=1',
-        issuesIntro: 'Mobile App Extension. An additional app layer introducing gamification features on top of the core marketplace:',
+        figmaBeforeIssuesLabel: 'Flow 1 · Website Redesign',
+        figmaBeforeIssues: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=800-7532&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=800%3A774',
+        issuesIntro: 'Flow 2 · Mobile App Extension',
         issues: [
           { title: 'Rewards system for buying and selling activity', desc: '' },
           { title: 'Unlockable badges and perks', desc: '' },
           { title: 'Unlockable retro collectibles such as Pac-Man style gameplay', desc: '' },
           { title: 'Progress-based engagement loop beyond transactions', desc: '' },
         ],
-        figmaEmbed: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=921-909&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=921%3A909&show-proto-sidebar=1',
+        figmaEmbed: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=921-909&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=921%3A909',
       },
       {
         label: 'Physical Concept',
@@ -641,7 +643,7 @@ export default function ProjectDetailScreen() {
                             </View>
                           ) : (
                             <View style={s.issue}>
-                              <Text style={s.issueItem}>{issue.title}</Text>
+                              <Text style={s.issueTitle}>{issue.title}</Text>
                             </View>
                           )}
                         </Reveal>
@@ -673,15 +675,28 @@ export default function ProjectDetailScreen() {
                 </Reveal>
               )}
               {sec.figmaBeforeIssues && (
-                <Reveal delay={80} y={28} style={{ alignItems: 'center', marginTop: mt, paddingBottom: imgOnlyPb }}>
-                  <FigmaEmbed url={sec.figmaBeforeIssues} />
+                <Reveal delay={80} y={28} style={{ marginTop: mt, paddingBottom: imgOnlyPb }}>
+                  {sec.figmaBeforeIssuesLabel && (
+                    <View style={[{ paddingBottom: 14 }, !isNarrow && { paddingLeft: 160 + 64 }]}>
+                      <Label accent>{sec.figmaBeforeIssuesLabel}</Label>
+                    </View>
+                  )}
+                  <View style={{ alignItems: 'center' }}>
+                    <FigmaEmbed url={sec.figmaBeforeIssues} />
+                  </View>
                 </Reveal>
               )}
               {(sec.imageBeforeIssues || sec.figmaBeforeIssues) && sec.issues && (
                 <View style={[{ paddingTop: clamp(width, 24, 3, 36), paddingBottom: issuesPb }, !isNarrow && { paddingLeft: 160 + 64 }]}>
                   {sec.issuesIntro && (
                     <Reveal y={12}>
-                      <Text style={[s.sectionPara, { marginBottom: 0 }]}>{sec.issuesIntro}</Text>
+                      {sec.figmaBeforeIssues ? (
+                        <View style={{ marginBottom: 12 }}>
+                          <Label accent>{sec.issuesIntro}</Label>
+                        </View>
+                      ) : (
+                        <Text style={[s.sectionPara, { marginBottom: 0 }]}>{sec.issuesIntro}</Text>
+                      )}
                     </Reveal>
                   )}
                   <View style={s.issues}>
@@ -828,7 +843,6 @@ const s = StyleSheet.create({
   },
   issueTitleCol: { width: 210, paddingTop: 2 },
   issueDesc: { color: colors.text, fontFamily: fonts.regular, fontSize: 16, lineHeight: 24 },
-  issueItem: { fontFamily: fonts.regular, fontSize: 17, lineHeight: 26, color: colors.text },
 
   shot: { width: '100%', backgroundColor: colors.ph, marginTop: 38 },
 
