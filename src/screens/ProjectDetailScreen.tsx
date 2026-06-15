@@ -417,7 +417,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         figmaEmbed: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=921-909&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=921%3A909',
       },
       {
-        label: 'Physical Concept',
+        label: 'Physical',
         title: 'Physical Concept',
         subSection: true,
         paragraphs: [
@@ -430,7 +430,7 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         ],
       },
       {
-        label: 'Social Media Identity',
+        label: 'Social',
         title: 'Social Media Identity',
         subSection: true,
         paragraphs: [
