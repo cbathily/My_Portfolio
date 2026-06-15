@@ -389,12 +389,25 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
         title: 'The Final Design',
         lead: true,
         paragraphs: [
-          'The final design delivers two connected experiences, each brought to life with an interactive prototype.',
-          'Website Redesign. A playful, retro-inspired marketplace featuring decorative Super Mario-style elements, animations, and a highly expressive browsing experience.',
+          'Two interactive prototypes bring the Vinted Retro concept to life. A website redesign and a gamified mobile app extension, each exploring a different layer of the experience.',
         ],
-        figmaBeforeIssuesLabel: 'Flow 1 · Website Redesign',
-        figmaBeforeIssues: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=800-7532&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=800%3A774',
-        issuesIntro: 'Flow 2 · Mobile App Extension',
+      },
+      {
+        label: 'Website',
+        title: 'Website Redesign',
+        subSection: true,
+        paragraphs: [
+          'A playful marketplace inspired by retro gaming culture. The design features decorative Super Mario style elements, expressive typography, animations, and an immersive browsing experience that feels closer to a game than a marketplace.',
+        ],
+        figmaEmbed: 'https://www.figma.com/proto/ivyvi4VafeVD24myjw74UF/Vinted-Retro-Rebranding?node-id=800-7532&t=Jz3kyVzQ53gEMMgZ-1&scaling=contain&content-scaling=fixed&page-id=611%3A747&starting-point-node-id=800%3A774',
+      },
+      {
+        label: 'App Extension',
+        title: 'Mobile App Extension',
+        subSection: true,
+        paragraphs: [
+          'An additional layer built on top of the Vinted platform, introducing gamification to make buying and selling more engaging over time.',
+        ],
         issues: [
           { title: 'Rewards system for buying and selling activity', desc: '' },
           { title: 'Unlockable badges and perks', desc: '' },
