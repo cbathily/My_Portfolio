@@ -3,6 +3,7 @@ import { ScrollView, View, Text, Pressable, StyleSheet, Animated, Platform } fro
 import { useNavigation } from '@react-navigation/native';
 import { colors, fonts, useResponsive, clamp, typeScale } from '../theme';
 import { Reveal, Placeholder, Chip, Pill, Container } from '../components/ui';
+import { PageGrid } from '../components/decor';
 import { PROJECT_COVERS } from '../assets/images';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -120,6 +121,7 @@ export default function ProjectsScreen() {
     <ScrollView style={s.bg} stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false}>
       <NavBar />
 
+      <PageGrid>
       <Container pad={pad}>
         {/* Header */}
         <View style={{ paddingTop: clamp(width, 56, 8, 110), alignItems: 'center' }}>
@@ -170,6 +172,7 @@ export default function ProjectsScreen() {
 
       <Footer />
       <View style={{ height: 40 }} />
+      </PageGrid>
     </ScrollView>
   );
 }

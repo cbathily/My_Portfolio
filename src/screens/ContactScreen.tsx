@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, View, Text, TextInput, Pressable, StyleSheet, Keyboard, Linking } from 'react-native';
 import { colors, fonts, useResponsive, clamp } from '../theme';
 import { Reveal, Label, Avail, Container } from '../components/ui';
+import { PageGrid } from '../components/decor';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -45,6 +46,7 @@ export default function ContactScreen() {
     >
       <NavBar />
 
+      <PageGrid>
       <Container pad={pad}>
         {/* HERO */}
         <View style={{ paddingTop: clamp(width, 48, 7, 104), paddingBottom: clamp(width, 28, 4, 52) }}>
@@ -134,6 +136,7 @@ export default function ContactScreen() {
 
       <Footer />
       <View style={{ height: 40 }} />
+      </PageGrid>
     </ScrollView>
   );
 }

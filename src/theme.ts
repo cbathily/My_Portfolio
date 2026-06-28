@@ -15,6 +15,7 @@ export const colors = {
   muted: '#6B7280',
   line: '#D1D1D1',
   lineSoft: '#e7e7e9',
+  grid: '#CCCCCC',
   ph: '#dadada',
   ph2: '#d0d0d0',
   paper: '#ffffff',

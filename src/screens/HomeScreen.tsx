@@ -17,6 +17,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { colors, fonts, useResponsive, clamp, typeScale, tracking } from '../theme';
 import { Reveal, Placeholder, Btn, Container, Label, Serif } from '../components/ui';
+import { PageGrid, SectionRule } from '../components/decor';
 import { PROJECT_COVERS } from '../assets/images';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -30,15 +31,6 @@ const HIGHLIGHTS: MosaicProject[] = [
   { id: 'munich',   num: '04', title: 'Super Munich App',                      alt: false },
   { id: 'swm',      num: '05', title: 'Agentic Workflow for Stadtwerke München', alt: true  },
 ];
-
-/* ─────────────────────────────────────────────
-   Dashed horizontal rule (renders dashed on web)
-───────────────────────────────────────────── */
-function DashedRule({ style }: { style?: ViewStyle }) {
-  return (
-    <View style={[{ borderTopWidth: 1, borderStyle: 'dashed', borderColor: colors.line }, style]} />
-  );
-}
 
 /* ─────────────────────────────────────────────
    Marquee  "COUMBA * BATHILY * …"
@@ -287,9 +279,10 @@ export default function HomeScreen() {
     <ScrollView style={s.bg} stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false}>
       <NavBar />
 
-      {/* MARQUEE BANNER */}
+      {/* MARQUEE BANNER — kept above the grid so the rail lines start below it */}
       <MarqueeBanner />
 
+      <PageGrid>
       {/* MAIN: text + mosaic */}
       {isNarrow ? (
         <Container pad={pad} style={{ paddingTop: TOP_PAD, paddingBottom: 0 }}>
@@ -314,8 +307,8 @@ export default function HomeScreen() {
       )}
 
       {/* SKILLS & TOOLS — dashed divider + dashed box per skill */}
-      <Container pad={pad} style={{ paddingTop: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad}>
         <View style={{ paddingTop: afterRule }}>
           <View style={[sk.row, isNarrow && sk.rowStack]}>
             <Reveal style={sk.head}>
@@ -349,8 +342,8 @@ export default function HomeScreen() {
       </Container>
 
       {/* DESIGN PHILOSOPHY — dashed divider + “ … ” */}
-      <Container pad={pad} style={{ paddingTop: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad}>
         <View style={{ paddingTop: afterRule }}>
           <View style={[q.row, isNarrow && q.rowStack]}>
             <Reveal style={isNarrow ? q.labelColNarrow : q.labelCol}>
@@ -374,8 +367,8 @@ export default function HomeScreen() {
       </Container>
 
       {/* CURRENTLY WORKING ON — title right, subheading left, same row */}
-      <Container pad={pad} style={{ paddingTop: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad}>
         <View style={{ paddingTop: afterRule }}>
           <Reveal>
             <View style={wp.badge}>
@@ -406,8 +399,8 @@ export default function HomeScreen() {
       </Container>
 
       {/* CTA — dashed divider + new asymmetric slogan */}
-      <Container pad={pad} style={{ paddingTop: aboveRule, paddingBottom: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad} style={{ paddingBottom: aboveRule }}>
         <View style={{ paddingTop: afterRule }}>
           <Reveal>
             <Text style={t.cta}>
@@ -437,6 +430,7 @@ export default function HomeScreen() {
 
       <Footer />
       <View style={{ height: 40 }} />
+      </PageGrid>
     </ScrollView>
   );
 }

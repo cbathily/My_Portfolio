@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, ViewStyle, Animated, Pressable } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Animated, Pressable } from 'react-native';
 import { colors, fonts, useResponsive, clamp, tracking } from '../theme';
 import { Reveal, Label, Placeholder, Container, Serif } from '../components/ui';
+import { PageGrid, SectionRule } from '../components/decor';
 import { ABOUT_PHOTO } from '../assets/images';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -45,10 +46,6 @@ const FACTS: string[] = [
   'I keep a 400-deep folder of UI screenshots I love.',
 ];
 
-function DashedRule({ style }: { style?: ViewStyle }) {
-  return <View style={[{ borderTopWidth: 1, borderStyle: 'dashed', borderColor: colors.line }, style]} />;
-}
-
 function HobbyTag({ label, delay, size }: { label: string; delay: number; size: number }) {
   const scale = useRef(new Animated.Value(1)).current;
   const [hovered, setHovered] = useState(false);
@@ -84,6 +81,7 @@ export default function AboutScreen() {
     <ScrollView style={s.bg} stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false}>
       <NavBar />
 
+      <PageGrid>
       {/* INTRO */}
       <Container pad={pad} style={{ paddingTop: clamp(width, 40, 5, 72) }}>
         <View style={[s.intro, isNarrow && s.introStack]}>
@@ -121,8 +119,8 @@ export default function AboutScreen() {
       </Container>
 
       {/* ROOTS — clean 3-tier hierarchy */}
-      <Container pad={pad} style={{ paddingTop: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad}>
         <View style={{ paddingTop: afterRule }}>
           <View style={[s.row, isNarrow && s.rowStack]}>
             <Reveal style={isNarrow ? s.labelColNarrow : s.labelCol}>
@@ -152,8 +150,8 @@ export default function AboutScreen() {
       </Container>
 
       {/* EDUCATION */}
-      <Container pad={pad} style={{ paddingTop: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad}>
         <View style={{ paddingTop: afterRule }}>
           <View style={[s.row, isNarrow && s.rowStack]}>
             <Reveal style={isNarrow ? s.labelColNarrow : s.labelCol}>
@@ -178,8 +176,8 @@ export default function AboutScreen() {
       </Container>
 
       {/* OFF THE CLOCK — hobbies as a tag cloud */}
-      <Container pad={pad} style={{ paddingTop: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad}>
         <View style={{ paddingTop: afterRule }}>
           <View style={[s.row, isNarrow && s.rowStack]}>
             <Reveal style={isNarrow ? s.labelColNarrow : s.labelCol}>
@@ -196,8 +194,8 @@ export default function AboutScreen() {
       </Container>
 
       {/* FUN FACTS — editorial numbered list */}
-      <Container pad={pad} style={{ paddingTop: aboveRule, paddingBottom: aboveRule }}>
-        <DashedRule />
+      <SectionRule marginTop={aboveRule} />
+      <Container pad={pad} style={{ paddingBottom: aboveRule }}>
         <View style={{ paddingTop: afterRule }}>
           <View style={[s.row, isNarrow && s.rowStack]}>
             <Reveal style={isNarrow ? s.labelColNarrow : s.labelCol}>
@@ -233,6 +231,7 @@ export default function AboutScreen() {
 
       <Footer />
       <View style={{ height: 40 }} />
+      </PageGrid>
     </ScrollView>
   );
 }
