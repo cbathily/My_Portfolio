@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Svg, { Path } from 'react-native-svg';
 import { siFigma, siReact, siPython } from 'simple-icons';
@@ -179,12 +179,15 @@ function Mosaic({ navigation, isNarrow }: MosaicProps) {
 ───────────────────────────────────────────── */
 type ToolItem = { cat: string; name: string; desc?: string };
 
+// Design trio first (Figma · User Research · Prototyping) so they sit in one row,
+// then the supporting tools.
 const TOOLS: ToolItem[] = [
-  { cat: 'Primary Tool', name: 'Figma',        desc: 'Wireframes · Prototypes · Design Systems' },
-  { cat: 'Frontend',     name: 'React'                                                          },
-  { cat: 'Research',     name: 'User Research', desc: 'Interviews · Usability Tests'            },
-  { cat: 'Code',         name: 'Python'                                                         },
-  { cat: 'Process',      name: 'Prototyping',   desc: 'Lo-fi to Hi-fi'                         },
+  { cat: 'Primary Tool', name: 'Figma',         desc: 'Wireframes · Prototypes · Design Systems' },
+  { cat: 'Research',     name: 'User Research',  desc: 'Interviews · Usability Tests'            },
+  { cat: 'Process',      name: 'Prototyping',    desc: 'Lo-fi to Hi-fi'                          },
+  { cat: 'Layout',       name: 'InDesign',       desc: 'Editorial · Layout · Print'              },
+  { cat: 'Frontend',     name: 'React',          desc: 'Components · Web UI'                      },
+  { cat: 'Code',         name: 'Python',         desc: 'Scripting · Automation'                  },
 ];
 
 const BRAND_ICONS: Record<string, { path: string; hex: string }> = {
@@ -199,6 +202,14 @@ const FA_ICONS: Record<string, { icon: string; color: string }> = {
 };
 
 function ToolIconSvg({ name, size }: { name: string; size: number }) {
+  if (name === 'InDesign') {
+    // simple-icons no longer ships Adobe marks — render the recognisable app tile
+    return (
+      <View style={{ width: size, height: size, borderRadius: size * 0.2, backgroundColor: '#310015', alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ color: '#FF3F6C', fontFamily: fonts.bold, fontSize: size * 0.48, lineHeight: size * 0.6, letterSpacing: -0.5 }}>Id</Text>
+      </View>
+    );
+  }
   const brand = BRAND_ICONS[name];
   if (brand) {
     return (
@@ -210,6 +221,50 @@ function ToolIconSvg({ name, size }: { name: string; size: number }) {
   const fa = FA_ICONS[name];
   if (fa) return <FontAwesome5 name={fa.icon as any} size={size} color={fa.color} />;
   return null;
+}
+
+/* ─────────────────────────────────────────────
+   Tool card — original layout (label · icon · name); the detail line
+   reveals on hover (fade + slide), with a subtle lift + border accent.
+   Space for the detail line is always reserved, so nothing reflows.
+───────────────────────────────────────────── */
+function ToolCard({ tool, width, isPhone }: { tool: ToolItem; width: number; isPhone: boolean }) {
+  const v = useRef(new Animated.Value(isPhone ? 1 : 0)).current;
+  const [hovered, setHovered] = useState(false);
+
+  const run = (to: number) =>
+    Animated.spring(v, { toValue: to, damping: 20, stiffness: 220, useNativeDriver: Platform.OS !== 'web' }).start();
+  const handlers = !isPhone && Platform.OS === 'web'
+    ? { onMouseEnter: () => { setHovered(true); run(1); }, onMouseLeave: () => { setHovered(false); run(0); } }
+    : {};
+
+  const lift   = v.interpolate({ inputRange: [0, 1], outputRange: [0, -4] });
+  const descY  = v.interpolate({ inputRange: [0, 1], outputRange: [8, 0] });
+  const nameSize = clamp(width, 17, 1.6, 22);
+
+  return (
+    <Animated.View
+      {...(handlers as any)}
+      style={[
+        sk.toolCard,
+        { borderColor: hovered ? colors.ink : colors.line, transform: [{ translateY: lift }] },
+        Platform.OS === 'web' ? ({ transition: 'border-color 0.3s ease' } as any) : null,
+      ]}
+    >
+      <View style={sk.toolCardTop}>
+        <Label>{tool.cat}</Label>
+        <ToolIconSvg name={tool.name} size={22} />
+      </View>
+      <Text style={[sk.toolName, { fontSize: nameSize, letterSpacing: tracking(nameSize, -0.02) }]}>
+        {tool.name}
+      </Text>
+      {tool.desc ? (
+        <Animated.View style={{ opacity: isPhone ? 1 : v, transform: [{ translateY: isPhone ? 0 : descY }] }}>
+          <Text style={sk.toolDesc}>{tool.desc}</Text>
+        </Animated.View>
+      ) : null}
+    </Animated.View>
+  );
 }
 
 /* ─────────────────────────────────────────────
@@ -324,16 +379,7 @@ export default function HomeScreen() {
                   delay={80 + i * 50}
                   style={[sk.cell, isPhone ? sk.cellPhone : isNarrow ? sk.cellTablet : undefined]}
                 >
-                  <View style={sk.toolCard}>
-                    <View style={sk.toolCardTop}>
-                      <Label>{tool.cat}</Label>
-                      <ToolIconSvg name={tool.name} size={22} />
-                    </View>
-                    <Text style={[sk.toolName, { fontSize: clamp(width, 17, 1.6, 22), letterSpacing: tracking(clamp(width, 17, 1.6, 22), -0.02) }]}>
-                      {tool.name}
-                    </Text>
-                    {tool.desc ? <Text style={sk.toolDesc}>{tool.desc}</Text> : null}
-                  </View>
+                  <ToolCard tool={tool} width={width} isPhone={isPhone} />
                 </Reveal>
               ))}
             </View>

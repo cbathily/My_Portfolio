@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ScrollView, View, Text, TextInput, Pressable, StyleSheet, Keyboard, Linking } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { colors, fonts, useResponsive, clamp } from '../theme';
 import { Reveal, Label, Avail, Container } from '../components/ui';
 import { PageGrid } from '../components/decor';
@@ -8,6 +9,76 @@ import Footer from '../components/Footer';
 
 type FormStatus = { type: 'ok'; msg: string } | null;
 type FormErrors = { name?: string; email?: string; message?: string };
+
+/* ─────────────────────────────────────────────
+   Typewriter hero — types out the title with a blinking caret that
+   keeps blinking once the line is finished.
+───────────────────────────────────────────── */
+const TW_FULL = "Let's create\nexperiences";
+const TW_SPLIT = "Let's create\n".length; // serif accent starts here
+
+function Caret({ fontSize, on }: { fontSize: number; on: boolean }) {
+  return (
+    <View
+      style={{
+        width: Math.max(2, fontSize * 0.03),
+        height: fontSize * 0.7,
+        marginLeft: fontSize * 0.05,
+        marginBottom: fontSize * 0.14,
+        borderRadius: 1,
+        backgroundColor: colors.accent,
+        opacity: on ? 1 : 0,
+      }}
+    />
+  );
+}
+
+function TypewriterTitle({ fontSize }: { fontSize: number }) {
+  const lh = fontSize * 0.9;
+  const [n, setN] = useState(0);
+  const [started, setStarted] = useState(false);
+  const [blinkOn, setBlinkOn] = useState(true);
+
+  // replay the animation every time the screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      setN(0);
+      setStarted(false);
+      const t = setTimeout(() => setStarted(true), 350);
+      return () => clearTimeout(t);
+    }, []),
+  );
+
+  useEffect(() => {
+    if (!started || n >= TW_FULL.length) return;
+    // brief pause on the line break for a natural rhythm
+    const delay = TW_FULL[n] === '\n' ? 240 : 62;
+    const t = setTimeout(() => setN(n + 1), delay);
+    return () => clearTimeout(t);
+  }, [started, n]);
+
+  useEffect(() => {
+    const id = setInterval(() => setBlinkOn(b => !b), 530);
+    return () => clearInterval(id);
+  }, []);
+
+  const line1 = TW_FULL.slice(0, Math.min(n, 12));            // "Let's create"
+  const line2 = n > TW_SPLIT ? TW_FULL.slice(TW_SPLIT, n) : ''; // "experiences" (serif)
+  const caretLine = n < TW_SPLIT ? 1 : 2;
+
+  return (
+    <View>
+      <View style={[s.twLine, { minHeight: lh }]}>
+        <Text style={[s.heroTitle, { fontSize, lineHeight: lh }]}>{line1}</Text>
+        {caretLine === 1 ? <Caret fontSize={fontSize} on={blinkOn} /> : null}
+      </View>
+      <View style={[s.twLine, { minHeight: lh }]}>
+        <Text style={[s.heroTitle, s.serif, { fontSize, lineHeight: lh }]}>{line2}</Text>
+        {caretLine === 2 ? <Caret fontSize={fontSize} on={blinkOn} /> : null}
+      </View>
+    </View>
+  );
+}
 
 export default function ContactScreen() {
   const { width, pad, isNarrow } = useResponsive();
@@ -54,9 +125,7 @@ export default function ContactScreen() {
             <Label accent style={{ marginBottom: 22 }}>Say hello</Label>
           </Reveal>
           <Reveal delay={80}>
-            <Text style={[s.heroTitle, { fontSize: clamp(width, 46, 9, 140), lineHeight: clamp(width, 46, 9, 140) * 0.9 }]}>
-              Let's create{'\n'}<Text style={s.serif}>experiences</Text>
-            </Text>
+            <TypewriterTitle fontSize={clamp(width, 46, 9, 140)} />
           </Reveal>
         </View>
 
@@ -86,7 +155,7 @@ export default function ContactScreen() {
             <FormField label="Your name" error={errors.name}>
               <TextInput
                 style={[s.input, errors.name ? s.inputErr : undefined]}
-                placeholder="Jane Doe"
+                placeholder="Jon Snow"
                 placeholderTextColor="#b4b4b4"
                 value={name}
                 onChangeText={v => { setName(v); setErrors(p => ({ ...p, name: undefined })); }}
@@ -97,7 +166,7 @@ export default function ContactScreen() {
             <FormField label="Email" error={errors.email}>
               <TextInput
                 style={[s.input, errors.email ? s.inputErr : undefined]}
-                placeholder="jane@company.com"
+                placeholder="jon@snow.com"
                 placeholderTextColor="#b4b4b4"
                 value={email}
                 onChangeText={v => { setEmail(v); setErrors(p => ({ ...p, email: undefined })); }}
@@ -177,6 +246,7 @@ const s = StyleSheet.create({
   bg: { flex: 1, backgroundColor: colors.paper },
   heroTitle: { fontFamily: fonts.semibold, color: colors.ink, letterSpacing: -3.5 },
   serif: { fontFamily: fonts.serifItalic, color: colors.accent },
+  twLine: { flexDirection: 'row', alignItems: 'flex-end' },
   grid: { flexDirection: 'row', gap: 80, alignItems: 'flex-start' },
   gridStack: { flexDirection: 'column', gap: 48, alignItems: 'stretch' },
   info: { flex: 0.85 },

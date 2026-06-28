@@ -32,6 +32,9 @@ const TIMELINE: TimelineItem[] = [
 
 const LANGUAGES = ['German', 'English', 'French'];
 
+// playful greeting shown in the custom cursor when hovering each language
+const GREETINGS: Record<string, string> = { German: 'Hallo', English: 'Hello', French: 'Salut' };
+
 const HOBBIES: string[] = [
   'Sketching & illustration',
   'Books & films',
@@ -87,6 +90,8 @@ export default function AboutScreen() {
         <View style={[s.intro, isNarrow && s.introStack]}>
           <Reveal y={32} style={isNarrow ? s.introImgWrapNarrow : s.introImgWrap}>
             <Placeholder style={StyleSheet.absoluteFill} source={ABOUT_PHOTO} />
+            {/* transparent overlay carries the custom-cursor label ("Hi !") on hover */}
+            <View {...({ dataSet: { cursor: 'Hi !' } } as any)} style={StyleSheet.absoluteFill} />
           </Reveal>
           <Reveal delay={90} y={20} style={isNarrow ? s.introTxtMobile : s.introTxt}>
             <Label accent style={{ marginBottom: 18 }}>About me</Label>
@@ -140,6 +145,8 @@ export default function AboutScreen() {
                   {LANGUAGES.map((lang, i) => (
                     <Reveal key={lang} delay={120 + i * 70} y={12} style={s.langPill}>
                       <Text style={s.langPillTxt}>{lang}</Text>
+                      {/* greeting shows in the custom cursor on hover */}
+                      <View {...({ dataSet: { cursor: GREETINGS[lang] } } as any)} style={StyleSheet.absoluteFill} />
                     </Reveal>
                   ))}
                 </View>
