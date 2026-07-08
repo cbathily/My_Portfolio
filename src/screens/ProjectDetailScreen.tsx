@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ScrollView, View, Text, Pressable, StyleSheet, Platform, useWindowDimensions } from 'react-native';
 import { Asset } from 'expo-asset';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -117,7 +117,10 @@ const PROJECTS_DETAIL: Record<string, ProjectDetail> = {
           'The redesign introduces a cleaner visual system with clear typographic hierarchy, improved spacing and a more consistent component language. A secondary purple accent complements the natural green palette.',
           'The app was reorganised around core use cases: exploring the home feed, browsing plant information, and engaging with the community.',
         ],
-        figmaEmbed: 'https://www.figma.com/proto/MykogSCeLUoiyxS8CRuChq/Pl-ntNet-Semesterarbeit?node-id=3-313&p=f&t=KYbwXcFqFtLavQml-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=3%3A313',
+        // hide-ui=1 removes Figma's floating prototype toolbar (‹ › ↺) which
+        // otherwise overlaps this design's own bottom navigation. Users still
+        // navigate via the prototype's own interactive nav bar.
+        figmaEmbed: 'https://www.figma.com/proto/MykogSCeLUoiyxS8CRuChq/Pl-ntNet-Semesterarbeit?node-id=3-313&p=f&t=KYbwXcFqFtLavQml-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=3%3A313&hide-ui=1',
       },
     ],
     nextNum: '02',
@@ -511,30 +514,83 @@ function VideoPlayer({ source }: { source: any }) {
    Figma prototype embed
 ───────────────────────────────────────────── */
 function FigmaEmbed({ url }: { url: string }) {
-  const embedUrl = `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
+  // The classic /embed wrapper always renders Figma's floating toolbar (‹ › ↺)
+  // and ignores hide-ui. When a URL opts into hide-ui=1 (only PlantNet, whose
+  // design has its own bottom nav that the toolbar was covering), embed the
+  // prototype directly via Figma's modern embed.figma.com endpoint, which does
+  // honor hide-ui. All other prototypes keep the classic wrapped embed.
+  const hideUi = url.includes('hide-ui=1');
+  const embedUrl = hideUi
+    ? `${url.replace('www.figma.com', 'embed.figma.com')}&embed-host=share`
+    : `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
   const { width: winW, height: winH } = useWindowDimensions();
   const [loaded, setLoaded] = useState(false);
+  const [isFull, setIsFull] = useState(false);
+  const screenRef = useRef<any>(null);
 
   const frameW = Math.min(390, winW - 48);
   const frameH = winH - 120;
 
+  // Keep our own button label in sync with the actual fullscreen state, so it
+  // also updates when the user leaves fullscreen via Esc.
+  useEffect(() => {
+    if (Platform.OS !== 'web') return;
+    const onChange = () => setIsFull(!!(document.fullscreenElement ?? (document as any).webkitFullscreenElement));
+    document.addEventListener('fullscreenchange', onChange);
+    document.addEventListener('webkitfullscreenchange', onChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', onChange);
+      document.removeEventListener('webkitfullscreenchange', onChange);
+    };
+  }, []);
+
+  // Because hide-ui removes Figma's own toolbar (and with it Figma's fullscreen
+  // button), we provide our own controls. We fullscreen the screen container
+  // (not the bare iframe) so the exit button can render on top of it.
+  const enlarge = () => {
+    const el = screenRef.current;
+    (el?.requestFullscreen ?? el?.webkitRequestFullscreen)?.call(el);
+  };
+  const shrink = () => {
+    ((document.exitFullscreen ?? (document as any).webkitExitFullscreen) as (() => void) | undefined)?.call(document);
+  };
+
   if (Platform.OS !== 'web') {
     return <View style={{ width: frameW, height: frameH, alignSelf: 'center', borderRadius: 12, backgroundColor: colors.ph }} />;
   }
-  return (
-    <View style={{ width: frameW, height: frameH, alignSelf: 'center', borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: colors.line, backgroundColor: colors.ph }}>
+
+  const frame = React.createElement('iframe', {
+    src: embedUrl,
+    style: { width: '100%', height: '100%', border: 'none', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.3s' },
+    allowFullScreen: true,
+    allow: 'fullscreen',
+    onLoad: () => setLoaded(true),
+  });
+
+  const overlay = (
+    <>
       {!loaded && (
         <View style={sf.loader}>
           <Text style={sf.loaderTxt}>Loading prototype…</Text>
         </View>
       )}
-      {React.createElement('iframe', {
-        src: embedUrl,
-        style: { width: '100%', height: '100%', border: 'none', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.3s' },
-        allowFullScreen: true,
-        allow: 'fullscreen',
-        onLoad: () => setLoaded(true),
-      })}
+      {hideUi && loaded && !isFull && (
+        <Pressable onPress={enlarge} style={sf.enlargeBtn} accessibilityLabel="Prototyp vergrößern">
+          <Text style={sf.enlargeTxt}>⛶</Text>
+        </Pressable>
+      )}
+      {hideUi && isFull && (
+        <Pressable onPress={shrink} style={sf.enlargeBtn} accessibilityLabel="Vollbild verlassen">
+          <Text style={sf.enlargeTxt}>✕</Text>
+        </Pressable>
+      )}
+    </>
+  );
+
+  return (
+    <View ref={screenRef} style={{ width: frameW, height: frameH, alignSelf: 'center', borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: colors.line, backgroundColor: colors.ph }}>
+      {frame}
+      {overlay}
     </View>
   );
 }
@@ -542,6 +598,11 @@ function FigmaEmbed({ url }: { url: string }) {
 const sf = StyleSheet.create({
   loader: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center' },
   loaderTxt: { fontFamily: fonts.regular, fontSize: 14, color: colors.muted },
+  enlargeBtn: {
+    position: 'absolute', top: 10, right: 10, width: 34, height: 34, borderRadius: 8,
+    alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.55)', zIndex: 2,
+  },
+  enlargeTxt: { fontSize: 18, lineHeight: 20, color: '#fff' },
 });
 
 /* ─────────────────────────────────────────────
