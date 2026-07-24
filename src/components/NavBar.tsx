@@ -42,7 +42,7 @@ export default function NavBar() {
 
   return (
     <View style={s.nav}>
-      <View style={[s.inner, { paddingHorizontal: pad }]}>
+      <View style={[s.inner, { paddingHorizontal: pad }, isPhone && s.innerPhone]}>
         <Pressable onPress={() => navigation.navigate('Home' as never)} style={s.brand}>
           <Text style={s.brandTxt}>Coumba Bathily</Text>
         </Pressable>
@@ -93,6 +93,15 @@ const s = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  /* phone: stack brand over a centered, wrapping row of links so nothing is
+     pushed off-screen on narrow widths */
+  innerPhone: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    paddingVertical: 14,
+  },
   brand: { flexDirection: 'row', alignItems: 'center' },
   brandTxt: { fontFamily: fonts.bold, fontSize: 16, letterSpacing: -0.3, color: colors.ink },
 
@@ -105,7 +114,7 @@ const s = StyleSheet.create({
   linkActive: { color: colors.ink },
 
   /* phone nav — compact inline links */
-  menuPhone: { flexDirection: 'row', alignItems: 'center', gap: 14 },
+  menuPhone: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', columnGap: 18, rowGap: 6 },
   phoneLinkWrap: { paddingVertical: 4 },
   phoneLink: { fontFamily: fonts.medium, fontSize: 12.5, color: colors.text, letterSpacing: 0.2 },
   phoneLinkActive: { color: colors.accent, fontFamily: fonts.semibold },
