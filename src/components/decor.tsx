@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { colors } from '../theme';
 
 /* Subtle blueprint guide lines. Kept very light so they read as a background
@@ -17,11 +17,22 @@ const RAIL_LEFT = 16; // inset from the very left edge of the page
 const RAIL_GAP = 22;  // distance between the two lines
 const LINE_W = 1;     // shared thickness for every guide line (vertical + horizontal)
 
+// Below this width the page's own content gutter (see `pad` in useResponsive,
+// theme.ts) shrinks to 20px — smaller than RAIL_LEFT + RAIL_GAP. Pull the
+// rail in so both lines stay inside the gutter instead of cutting into text.
+const COMPACT_BREAKPOINT = 600;
+const RAIL_LEFT_COMPACT = 6;
+const RAIL_GAP_COMPACT = 8;
+
 export function GridLines() {
+  const { width } = useWindowDimensions();
+  const isCompact = width < COMPACT_BREAKPOINT;
+  const left = isCompact ? RAIL_LEFT_COMPACT : RAIL_LEFT;
+  const gap = isCompact ? RAIL_GAP_COMPACT : RAIL_GAP;
   return (
     <View pointerEvents="none" style={[StyleSheet.absoluteFill, { zIndex: 0 }]}>
-      <View style={{ position: 'absolute', top: 0, bottom: 0, left: RAIL_LEFT, width: LINE_W, backgroundColor: GRID_COLOR }} />
-      <View style={{ position: 'absolute', top: 0, bottom: 0, left: RAIL_LEFT + RAIL_GAP, width: LINE_W, backgroundColor: GRID_COLOR }} />
+      <View style={{ position: 'absolute', top: 0, bottom: 0, left, width: LINE_W, backgroundColor: GRID_COLOR }} />
+      <View style={{ position: 'absolute', top: 0, bottom: 0, left: left + gap, width: LINE_W, backgroundColor: GRID_COLOR }} />
     </View>
   );
 }

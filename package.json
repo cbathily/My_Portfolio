@@ -13,6 +13,7 @@
     "deploy": "expo export --platform web && wrangler deploy"
   },
   "dependencies": {
+    "@expo-google-fonts/cormorant-garamond": "^0.4.1",
     "@expo-google-fonts/instrument-serif": "^0.4.1",
     "@expo-google-fonts/poppins": "^0.4.1",
     "@expo-google-fonts/schibsted-grotesk": "^0.4.2",

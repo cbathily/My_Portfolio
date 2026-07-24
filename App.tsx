@@ -26,6 +26,7 @@ import {
 
 import { colors } from './src/theme';
 import CursorDot from './src/components/CursorDot';
+import Grain from './src/components/Grain';
 import HomeScreen from './src/screens/HomeScreen';
 import ProjectsScreen from './src/screens/ProjectsScreen';
 import ProjectDetailScreen from './src/screens/ProjectDetailScreen';
@@ -85,6 +86,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
+      <Grain />
       <CursorDot />
       <StatusBar style="dark" />
       <NavigationContainer theme={navTheme} linking={linking}>
